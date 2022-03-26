@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "030kG7CfNelOda+e7tL4i1coh9dwIUUNHTYXABqlEMUjb8z/gBNDxBkr1NmHvXSsnrOUfIZr64c+4xSWMp6cBA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.1\\microsoft.aspnetcore.spaproxy.6.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
