@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {}
+    "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {
+    "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
         "projectName": "PSAIPI",
-        "projectPath": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
