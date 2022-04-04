@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\krist\\OneDrive - Kaunas University of Technology\\PSAIPI\\Project\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {}
+    "D:\\Analize\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\krist\\OneDrive - Kaunas University of Technology\\PSAIPI\\Project\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {
+    "D:\\Analize\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\krist\\OneDrive - Kaunas University of Technology\\PSAIPI\\Project\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
+        "projectUniqueName": "D:\\Analize\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
         "projectName": "PSAIPI",
-        "projectPath": "C:\\Users\\krist\\OneDrive - Kaunas University of Technology\\PSAIPI\\Project\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
+        "projectPath": "D:\\Analize\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
         "packagesPath": "C:\\Users\\krist\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\krist\\OneDrive - Kaunas University of Technology\\PSAIPI\\Project\\PSAIPI\\PSAIPI\\PSAIPI\\obj\\",
+        "outputPath": "D:\\Analize\\PSAIPI\\PSAIPI\\PSAIPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\krist\\AppData\\Roaming\\NuGet\\NuGet.Config",
