@@ -31,3 +31,5 @@ ops/*.retry
 # IDE
 .idea/
 .vs/
+
+.suo
