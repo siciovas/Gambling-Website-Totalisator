@@ -1,0 +1,7 @@
+.row {
+    justify-content: space-evenly;
+}
+
+.img-thumbnail {
+    width: 15%;
+}

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ttJ0TfbOd1ODy0nce7DlOf0Ia/TSyQLMx+QMxYana6xS9yiEkBMIx/XJ0lgni6T/a+47OC7BdH8dBnnQi1jYfA==",
+  "dgSpecHash": "csyGu865dNSdiUlf2tox3oOTvS0TY4WOWfuKbIJzn2jWQ0qTstjvlMsokl1ZcdFWPxDtTaghkx5/QElGaSeACw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\Desktop\\Universitetas\\ProgramuSistemuAnalizesIrProjektavimoIrankiai\\Projektas\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
+  "projectFilePath": "C:\\Users\\krist\\OneDrive - Kaunas University of Technology\\PSAIPI\\Project\\PSAIPI\\PSAIPI\\PSAIPI\\PSAIPI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.1\\microsoft.aspnetcore.spaproxy.6.0.1.nupkg.sha512"
+    "C:\\Users\\krist\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\6.0.1\\microsoft.aspnetcore.spaproxy.6.0.1.nupkg.sha512"
   ],
   "logs": []
 }

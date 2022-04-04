@@ -23,7 +23,7 @@ function LoginPage(Login) {
                     <label htmlFor='password'>Slaptažodis</label>
                     <input type='password' name='password' id='password' onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                 </div>
-                <input type='submit' value='Prisijungti' />
+                <input type='submit' className='btn btn-primary' value='Prisijungti' />
 
             </div>
         </form>
