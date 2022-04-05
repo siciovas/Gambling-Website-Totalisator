@@ -4,7 +4,7 @@
 
 namespace PSAIPI.Migrations
 {
-    public partial class CreateInitial : Migration
+    public partial class createinitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

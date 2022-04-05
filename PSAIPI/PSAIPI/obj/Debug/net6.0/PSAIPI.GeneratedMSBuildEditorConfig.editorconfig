@@ -8,17 +8,17 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PSAIPI
 build_property.RootNamespace = PSAIPI
-build_property.ProjectDir = D:\Analize\PSAIPI\PSAIPI\PSAIPI\
+build_property.ProjectDir = C:\Users\User\Desktop\Universitetas\ProgramuSistemuAnalizesIrProjektavimoIrankiai\.NET+REACT\PSAIPI\PSAIPI\PSAIPI\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Analize\PSAIPI\PSAIPI\PSAIPI
+build_property.MSBuildProjectDirectory = C:\Users\User\Desktop\Universitetas\ProgramuSistemuAnalizesIrProjektavimoIrankiai\.NET+REACT\PSAIPI\PSAIPI\PSAIPI
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Analize/PSAIPI/PSAIPI/PSAIPI/Pages/Error.cshtml]
+[C:/Users/User/Desktop/Universitetas/ProgramuSistemuAnalizesIrProjektavimoIrankiai/.NET+REACT/PSAIPI/PSAIPI/PSAIPI/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Analize/PSAIPI/PSAIPI/PSAIPI/Pages/_ViewImports.cshtml]
+[C:/Users/User/Desktop/Universitetas/ProgramuSistemuAnalizesIrProjektavimoIrankiai/.NET+REACT/PSAIPI/PSAIPI/PSAIPI/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

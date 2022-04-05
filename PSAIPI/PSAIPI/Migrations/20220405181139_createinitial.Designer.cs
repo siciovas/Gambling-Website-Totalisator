@@ -11,8 +11,8 @@ using PSAIPI.Data;
 namespace PSAIPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220404210411_CreateInitial")]
-    partial class CreateInitial
+    [Migration("20220405181139_createinitial")]
+    partial class createinitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
