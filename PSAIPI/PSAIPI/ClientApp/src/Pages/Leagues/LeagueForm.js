@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import "./LeagueForm.css";
 import { useHistory, useLocation } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const LeagueForm = () => {
@@ -28,7 +29,10 @@ const LeagueForm = () => {
       };
       const response = await fetch(`https://localhost:7217/api/league/`, requestOptions);
       if (response.ok) {
-        history.push("/leagues");
+        const id = await response.json();
+        history.push(`/league/${id}`);
+      } else if(response.status === 409) {
+        toastError();
       }
     } else {
       const requestOptions = {
@@ -37,12 +41,17 @@ const LeagueForm = () => {
         body: JSON.stringify(leaguePayload)
       };
       const response = await fetch(`https://localhost:7217/api/league/`, requestOptions);
+      const addedId = await response.json();
       if (response.ok) {
-        history.push("/leagues");
-      } else {
-        console.log(response);
+        history.push(`/league/${addedId}`);
+      } else if(response.status === 409) {
+        toastError();
       }
     }
+  }
+
+  const toastError = () => {
+    toast.error("League is already exists.");
   }
 
   return (
@@ -63,6 +72,7 @@ const LeagueForm = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   )
 

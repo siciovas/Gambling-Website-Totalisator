@@ -41,7 +41,7 @@ namespace PSAIPI.Controllers
                 _context.Leagues.Add(league);
                 await _context.SaveChangesAsync();
 
-                return Ok(await _context.Leagues.ToListAsync());
+                return Ok(league.Id);
             } else
             {
                 return Conflict("League is already exists");
@@ -55,12 +55,22 @@ namespace PSAIPI.Controllers
             if (league == null)
                 return BadRequest("League not found");
 
-            league.Title = request.Title;
-            league.Description = request.Description;
+            var existingLeague = await _context.Leagues.FirstOrDefaultAsync(l => l.Title == request.Title);
+            if (existingLeague == null)
+            {
+                league.Title = request.Title;
+                league.Description = request.Description;
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return Ok(await _context.Leagues.ToListAsync());
+                return Ok(request.Id);
+            } else
+            {
+                return Conflict("League is already exists");
+            }
+
+
+            
         }
 
         [HttpDelete("{id}")]
