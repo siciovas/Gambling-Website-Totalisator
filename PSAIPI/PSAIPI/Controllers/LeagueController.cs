@@ -55,14 +55,23 @@ namespace PSAIPI.Controllers
         {
 
             var allLeagues = await leagueRepository.GetAll();
-            var existingLeague = allLeagues.Find(l => l.Title == request.Title);
-            if (existingLeague == null)
+            var editingLeague = allLeagues.Find(l => l.Id == request.Id);
+           
+            if (editingLeague.Title == request.Title)
             {
                 var leagueId = await leagueRepository.Edit(request);
 
                 return Ok(leagueId);
             } else
             {
+                var existingLeague = allLeagues.Find(l => l.Title == request.Title);
+                if (existingLeague == null)
+                {
+                    var leagueId = await leagueRepository.Edit(request);
+
+                    return Ok(leagueId);
+
+                }
                 return Conflict("League is already exists");
             }
 

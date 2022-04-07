@@ -56,7 +56,7 @@ const LeagueForm = () => {
 
   return (
     <div>
-      <h1>Pridėti lygą</h1>
+      <h1>{id ? "Redaguoti" : "Pridėti"} lygą</h1>
       <div className="d-flex justify-content-center">
         <form onSubmit={submitLeague}>
           <div class="form-group">
@@ -68,7 +68,7 @@ const LeagueForm = () => {
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value={leaguePayload.description} onChange={e => setLeaguePayload(leaguePayload => ({ ...leaguePayload, description: e.target.value }))}></textarea>
           </div>
           <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-success mt-2">Pridėti</button>
+            <button type="submit" className="btn btn-success mt-2">{id ? "Atnaujinti" : "Pridėti"}</button>
           </div>
         </form>
       </div>
