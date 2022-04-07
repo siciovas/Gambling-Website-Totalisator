@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PSAIPI.Data;
 using PSAIPI.Models;
+using PSAIPI.Repositories;
 
 namespace PSAIPI.Controllers
 {
@@ -10,38 +11,39 @@ namespace PSAIPI.Controllers
     [ApiController]
     public class LeagueController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly LeagueRepository leagueRepository;
 
         public LeagueController(DataContext context)
         {
-            _context = context;
+            leagueRepository = new LeagueRepository(context);
         }
 
         [HttpGet]
         public async Task<ActionResult<List<League>>> Get()
         {
-            return Ok(await _context.Leagues.ToListAsync());
+            return Ok(await leagueRepository.GetAll());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<League>> Get(int id)
         {
-            var league = await _context.Leagues.FindAsync(id);
+            var league = await leagueRepository.GetLeagueById(id);
             if (league == null)
                 return BadRequest("League not found");
             return Ok(league);
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<League>>> AddLeague(League league)
+        public async Task<ActionResult<int>> AddLeague(League league)
         {
-            var existingLeague = await _context.Leagues.FirstOrDefaultAsync(l => l.Title == league.Title);
+
+            var allLeagues = await leagueRepository.GetAll();
+            var existingLeague = allLeagues.Find(l => l.Title == league.Title);
             if (existingLeague == null)
             {
-                _context.Leagues.Add(league);
-                await _context.SaveChangesAsync();
+                var leagueId = await leagueRepository.Add(league);
 
-                return Ok(league.Id);
+                return Ok(leagueId);
             } else
             {
                 return Conflict("League is already exists");
@@ -49,21 +51,16 @@ namespace PSAIPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<League>>> EditLeague(League request)
+        public async Task<ActionResult<int>> EditLeague(League request)
         {
-            var league = await _context.Leagues.FindAsync(request.Id);
-            if (league == null)
-                return BadRequest("League not found");
 
-            var existingLeague = await _context.Leagues.FirstOrDefaultAsync(l => l.Title == request.Title);
+            var allLeagues = await leagueRepository.GetAll();
+            var existingLeague = allLeagues.Find(l => l.Title == request.Title);
             if (existingLeague == null)
             {
-                league.Title = request.Title;
-                league.Description = request.Description;
+                var leagueId = await leagueRepository.Edit(request);
 
-                await _context.SaveChangesAsync();
-
-                return Ok(request.Id);
+                return Ok(leagueId);
             } else
             {
                 return Conflict("League is already exists");
@@ -76,14 +73,9 @@ namespace PSAIPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<League>>> Delete(int id)
         {
-            var league = await _context.Leagues.FindAsync(id);
-            if (league == null)
-                return BadRequest("League not found");
+            await leagueRepository.Delete(id);
 
-            _context.Leagues.Remove(league);
-            await _context.SaveChangesAsync();
-
-            return Ok(await _context.Leagues.ToListAsync());
+            return Ok(await leagueRepository.GetAll());
         }
     }
 }

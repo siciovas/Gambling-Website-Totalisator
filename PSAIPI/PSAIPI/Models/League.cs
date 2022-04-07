@@ -10,5 +10,13 @@ namespace PSAIPI.Models
         public string Description { get; set; } = string.Empty;
         public int CreatorId { get; set; }
 
+        public League (int id, string title, string description, int creatorId)
+        {
+            Id = id;
+            Title = title;
+            Description = description;
+            CreatorId = creatorId;
+        }
+
     }
 }
