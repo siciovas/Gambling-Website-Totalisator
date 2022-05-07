@@ -41,8 +41,8 @@ const LeagueForm = () => {
         body: JSON.stringify(leaguePayload)
       };
       const response = await fetch(`https://localhost:7217/api/league/`, requestOptions);
-      const addedId = await response.json();
       if (response.ok) {
+        const addedId = await response.json();
         history.push(`/league/${addedId}`);
       } else if(response.status === 409) {
         toastError();
