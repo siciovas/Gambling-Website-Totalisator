@@ -7,6 +7,7 @@ import { Modal, Button } from "react-bootstrap";
 const League = ({ leagueInfo }) => {
     const [league, setLeague] = useState({});
     const [show, setShow] = useState(false);
+    const [leagueMembers, setLeagueMembers] = useState([]);
     const params = useParams();
     const history = useHistory();
 
@@ -14,6 +15,9 @@ const League = ({ leagueInfo }) => {
         const response = await fetch(`https://localhost:7217/api/league/${params.id}`);
         const data = await response.json();
         setLeague(data);
+        const response1 = await fetch(`https://localhost:7217/api/league/members/${params.id}`);
+        const data1 = await response1.json();
+        setLeagueMembers(data1);
     }, []);
 
     const deleteLeague = async () => {
@@ -61,6 +65,14 @@ const League = ({ leagueInfo }) => {
                         </tr>
                     </thead>
                     <tbody>
+                        {leagueMembers.map((x => {
+                            return (
+                                <tr>
+                                    <th scope="col">{x.id}</th>
+                                    <th scope="col">{x.user.name + " " + x.user.surname}</th>
+                                </tr>
+                            )
+                        }))}
                     </tbody>
                 </table>
             </div>

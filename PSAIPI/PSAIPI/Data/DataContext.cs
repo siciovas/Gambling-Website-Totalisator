@@ -8,5 +8,15 @@ namespace PSAIPI.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<League> Leagues { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<League_member> League_members { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<League>().ToTable("Leagues");
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<League_member>().ToTable("League_members");
+            modelBuilder.Entity<User>().HasOne(a => a.LeagueMember).WithOne(a => a.User).HasForeignKey<League_member>(c => c.UserId);
+        }
     }
 }

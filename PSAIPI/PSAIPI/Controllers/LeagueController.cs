@@ -74,9 +74,6 @@ namespace PSAIPI.Controllers
                 }
                 return Conflict("League is already exists");
             }
-
-
-            
         }
 
         [HttpDelete("{id}")]
@@ -85,6 +82,25 @@ namespace PSAIPI.Controllers
             await leagueRepository.Delete(id);
 
             return Ok(await leagueRepository.GetAll());
+        }
+
+        [Route("[action]/{userID}/{leagueID}")]
+        [HttpPost]
+        public async Task<ActionResult<int>> JoinLeague(int userID, int leagueID)
+        {
+            var member = await leagueRepository.GetMemberById(userID);
+            if (member == null)
+            {
+                var id = await leagueRepository.AddUserToLeague(userID, leagueID);
+                return Ok(id);
+            }
+            return Conflict("User already has league");
+        }
+
+        [HttpGet("members/{leagueID}")]
+        public async Task<ActionResult<List<League_member>>> GetLeagueMembers(int leagueID)
+        {
+            return await leagueRepository.GetLeagueMembers(leagueID);
         }
     }
 }
