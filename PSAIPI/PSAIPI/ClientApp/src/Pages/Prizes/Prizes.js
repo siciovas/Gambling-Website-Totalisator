@@ -13,10 +13,6 @@ const Prizes = ({ navigation }) => {
     setPrizes(data);
   }, []);
 
-  const openPrize = (id) => {
-    history.push(`/prize/${id}`);
-  };
-
   return (
     <div class="container-sm">
       <div className="d-flex justify-content-end"></div>
@@ -26,12 +22,7 @@ const Prizes = ({ navigation }) => {
         {prizes.map((prize) => {
           return (
             <div class="card">
-              <img
-                class="card-img-top"
-                src={logo}
-                alt="Card image cap"
-                onClick={() => openPrize(prize.id)}
-              />
+              <img class="card-img-top" src={logo} alt="Card image cap" />
               <div class="card-body text-center">
                 <p class="card-text">
                   <b>{prize.name}</b>

@@ -16,10 +16,5 @@ namespace PSAIPI.Repositories
         {
             return await _context.Prizes.ToListAsync();
         }
-
-        public async Task<Prize> GetPrizeById(int id)
-        {
-            return _context.Prizes.SingleOrDefault(prize => prize.Id == id);
-        }
     }
 }

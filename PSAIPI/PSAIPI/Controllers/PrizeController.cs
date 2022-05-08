@@ -21,14 +21,5 @@ namespace PSAIPI.Controllers
         {
             return Ok(await prizeRepository.GetAll());
         }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Prize>> Get(int id)
-        {
-            var prize = await prizeRepository.GetPrizeById(id);
-            if (prize == null)
-                return BadRequest("Prize not found");
-            return Ok(prize);
-        }
     }
 }
