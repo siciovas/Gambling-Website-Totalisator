@@ -10,6 +10,7 @@ namespace PSAIPI.Data
         public DbSet<League> Leagues { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<League_member> League_members { get; set; }
+        public DbSet<Prize> Prizes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
