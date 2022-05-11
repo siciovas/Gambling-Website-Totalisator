@@ -117,7 +117,17 @@ namespace PSAIPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Team1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Team2Id")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Team1Id");
+
+                    b.HasIndex("Team2Id");
 
                     b.ToTable("Matches");
                 });
@@ -171,9 +181,6 @@ namespace PSAIPI.Migrations
                     b.Property<int?>("LosesInARow")
                         .HasColumnType("int");
 
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeamColours")
                         .HasColumnType("nvarchar(max)");
 
@@ -189,9 +196,7 @@ namespace PSAIPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MatchId");
-
-                    b.ToTable("Teams", (string)null);
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("PSAIPI.Models.User", b =>
@@ -267,18 +272,23 @@ namespace PSAIPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PSAIPI.Models.Team", b =>
-                {
-                    b.HasOne("PSAIPI.Models.Match", null)
-                        .WithMany("Teams")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PSAIPI.Models.Match", b =>
                 {
-                    b.Navigation("Teams");
+                    b.HasOne("PSAIPI.Models.Team", "Team1")
+                        .WithMany()
+                        .HasForeignKey("Team1Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PSAIPI.Models.Team", "Team2")
+                        .WithMany()
+                        .HasForeignKey("Team2Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team1");
+
+                    b.Navigation("Team2");
                 });
 
             modelBuilder.Entity("PSAIPI.Models.User", b =>

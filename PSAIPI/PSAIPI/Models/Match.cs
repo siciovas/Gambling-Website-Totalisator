@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PSAIPI.Models
 {
@@ -15,8 +16,12 @@ namespace PSAIPI.Models
         public int? HomeTeamPoints { get; set; }
         public int? AwayTeamPoints { get; set; }
         public Status Status { get; set; }
-
-        public List<Team> Teams { get; set; }
+        [ForeignKey("Team1")]
+        public int Team1Id { get; set; }
+        public Team Team1 { get; set; }
+        [ForeignKey("Team2")]
+        public int Team2Id { get; set; }
+        public Team Team2 { get; set; }
     }
 
     public enum Status

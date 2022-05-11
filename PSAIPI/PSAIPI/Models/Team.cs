@@ -14,8 +14,5 @@ namespace PSAIPI.Models
         public string? Titles { get; set; }
         public int? WinsInARow { get; set; }
         public int? LosesInARow { get; set; }
-
-        [ForeignKey("FK_Match")]
-        public int MatchId { get; set; }
     }
 }
