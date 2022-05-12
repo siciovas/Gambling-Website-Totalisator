@@ -14,12 +14,19 @@ namespace PSAIPI.Repositories
 
         public async Task<List<Match>> GetAllMatches()
         {
+            var matches = await _context.Matches.Include(a => a.Team1).Include(a => a.Team2).ToListAsync();
             return await _context.Matches.ToListAsync();
         }
         public async Task<int> Add(List<Match> matches)
         {
+            var allTeams = await _context.Teams.ToListAsync();
             foreach (var match in matches)
             {
+                var team1Id = allTeams.Where(a => a.TeamName == match.Team1.TeamName).Select(a => a.Id).FirstOrDefault();
+                var team2Id = allTeams.Where(a => a.TeamName == match.Team2.TeamName).Select(a => a.Id).FirstOrDefault();
+                var matchExist = _context.Matches.Where(a => a.StartDate == match.StartDate && a.Team1Id == team1Id && a.Team2Id == team2Id).FirstOrDefault();
+                if (matchExist is null)
+                {
                 var temp = new Match
                 {
                     StartDate = match.StartDate,
@@ -30,9 +37,12 @@ namespace PSAIPI.Repositories
                     Broadcaster = match.Broadcaster,
                     HomeTeamPoints = match.HomeTeamPoints,
                     AwayTeamPoints = match.AwayTeamPoints,
-                    Status = match.Status
+                    Status = match.Status,
+                    Team1Id = team1Id,
+                    Team2Id = team2Id
                 };
                 var response = _context.Matches.Add(temp);
+                }
                 /*foreach (var item in match.Teams)
                 {
                     _context.Teams
@@ -41,11 +51,6 @@ namespace PSAIPI.Repositories
             await _context.SaveChangesAsync();
             
             return 1;
-        }
-
-        internal Task GetMatchById(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

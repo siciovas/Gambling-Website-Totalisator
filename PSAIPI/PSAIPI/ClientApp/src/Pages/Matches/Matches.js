@@ -1,6 +1,6 @@
 import react, { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import Moment from 'moment';
+import moment from 'moment-timezone';
 
 const Matches = () => {
     const [allMatches, setAllMatches] = useState([]);
@@ -13,7 +13,12 @@ const Matches = () => {
         }
       };
 
-    useEffect(async () => {}, [])
+    useEffect(async () => {
+        const matchesResponse = await fetch(`https://localhost:7217/api/match/`);
+        const matchesResponseJSON = await matchesResponse.json();
+        const t = new Date(matchesResponseJSON[0].startDate).toISOString();
+        setAllMatches(matchesResponseJSON);
+    }, [])
 
     const importData = async () => {
         
@@ -28,14 +33,14 @@ const Matches = () => {
                         StartDate: new Date(m.game.date).toISOString(),
                         League: m.league.name,
                         Status: 0,
-                        Teams: [
+                        Team1:
                             {
                                 TeamName: m.game.teams.home.name
                             },
+                        Team2:
                             {
                                 TeamName: m.game.teams.away.name
                             }
-                        ]    
                     })  
             })
         }
@@ -56,13 +61,27 @@ const Matches = () => {
         <>
             <h1>NBA Matches</h1>
             <button className="btn btn-success" onClick={() => importData()}>Import data</button>
-            {allMatches.filter((m) => m.game.status.short === 'NS').map((m => {
-                return (
-                    <><h1>
-                        {m.game.teams.home.name} vs {m.game.teams.away.name}
-                    </h1><br /></>
-                )
-            }))}
+            <table class="table mt-5">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Rungtynės</th>
+                <th scope="col">Pradžios laikas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {allMatches.map((m, index) => {
+                    return (
+                        <tr>
+                        <th scope="row">{++index}</th>
+                        <td>{m.team1.teamName} vs {m.team2.teamName}</td>
+                        <td>{moment(m.startDate).format("YYYY-MM-DD HH:mm")}</td>
+                        </tr>
+                    )
+                })}
+            </tbody>
+            </table>
+            
         </>
     )
 }

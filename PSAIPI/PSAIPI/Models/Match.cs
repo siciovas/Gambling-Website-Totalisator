@@ -17,11 +17,11 @@ namespace PSAIPI.Models
         public int? AwayTeamPoints { get; set; }
         public Status Status { get; set; }
         [ForeignKey("Team1")]
-        public int Team1Id { get; set; }
-        public Team Team1 { get; set; }
+        public int? Team1Id { get; set; }
+        public Team? Team1 { get; set; }
         [ForeignKey("Team2")]
-        public int Team2Id { get; set; }
-        public Team Team2 { get; set; }
+        public int? Team2Id { get; set; }
+        public Team? Team2 { get; set; }
     }
 
     public enum Status

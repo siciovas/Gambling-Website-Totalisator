@@ -8,7 +8,7 @@ namespace PSAIPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MatchController : Controller
+    public class MatchController : ControllerBase
     {
         private readonly MatchRepository matchRepository;
 
@@ -20,6 +20,7 @@ namespace PSAIPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Match>>> Get()
         {
+            var match = await matchRepository.GetAllMatches();
             return Ok(await matchRepository.GetAllMatches());
         }
 
@@ -36,7 +37,7 @@ namespace PSAIPI.Controllers
         public async Task<ActionResult<int>> AddMatch(MatchPayload matches)
         {
             var test = "Test";
-            var id = matchRepository.Add(matches.Matches);
+            var id = await matchRepository.Add(matches.Matches);
             return Ok(1);
         }
     }
