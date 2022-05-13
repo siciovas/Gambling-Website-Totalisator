@@ -77,6 +77,11 @@ export class NavMenu extends Component {
                     Login
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/matches">
+                    Peržiūrėti varžybas
+                  </NavLink>
+                </NavItem>
               </ul>
             </Collapse>
           </Container>
