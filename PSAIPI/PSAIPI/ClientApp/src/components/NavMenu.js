@@ -53,8 +53,18 @@ export class NavMenu extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/login-page">
-                    Login
+                  <NavLink tag={Link} className="text-dark" to="/leagues">
+                    Lygos
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/prizes">
+                    Peržiūrėti prizus
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/maps">
+                    Žemėlapis
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -63,13 +73,8 @@ export class NavMenu extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/leagues">
-                    Lygos
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/prizes">
-                    Peržiūrėti prizus
+                  <NavLink tag={Link} className="text-dark" to="/login-page">
+                    Login
                   </NavLink>
                 </NavItem>
                 <NavItem>
