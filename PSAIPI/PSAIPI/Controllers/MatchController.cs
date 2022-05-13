@@ -20,7 +20,6 @@ namespace PSAIPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Match>>> Get()
         {
-            var match = await matchRepository.GetAllMatches();
             return Ok(await matchRepository.GetAllMatches());
         }
 

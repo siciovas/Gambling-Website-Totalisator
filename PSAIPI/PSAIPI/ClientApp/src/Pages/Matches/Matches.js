@@ -16,7 +16,7 @@ const Matches = () => {
     useEffect(async () => {
         const matchesResponse = await fetch(`https://localhost:7217/api/match/`);
         const matchesResponseJSON = await matchesResponse.json();
-        const t = new Date(matchesResponseJSON[0].startDate).toISOString();
+        console.log(matchesResponseJSON);
         setAllMatches(matchesResponseJSON);
     }, [])
 
@@ -30,6 +30,7 @@ const Matches = () => {
             response.response.map((m) => {
                 return (
                     {
+                        EndDate: new Date(m.game)
                         StartDate: new Date(m.game.date).toISOString(),
                         League: m.league.name,
                         Status: 0,
@@ -75,7 +76,7 @@ const Matches = () => {
                         <tr>
                         <th scope="row">{++index}</th>
                         <td>{m.team1.teamName} vs {m.team2.teamName}</td>
-                        <td>{moment(m.startDate).format("YYYY-MM-DD HH:mm")}</td>
+                        <td>{moment(m.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm")}</td>
                         </tr>
                     )
                 })}

@@ -14,8 +14,7 @@ namespace PSAIPI.Repositories
 
         public async Task<List<Match>> GetAllMatches()
         {
-            var matches = await _context.Matches.Include(a => a.Team1).Include(a => a.Team2).ToListAsync();
-            return await _context.Matches.ToListAsync();
+            return await _context.Matches.Include(a => a.Team1).Include(a => a.Team2).ToListAsync();
         }
         public async Task<int> Add(List<Match> matches)
         {
