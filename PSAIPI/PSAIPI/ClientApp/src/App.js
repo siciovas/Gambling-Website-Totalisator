@@ -8,6 +8,7 @@ import Leagues from "./Pages/Leagues/Leagues";
 import League from "./Pages/Leagues/League";
 import LeagueForm from "./Pages/Leagues/LeagueForm";
 import Prizes from "./Pages/Prizes/Prizes";
+import Maps from "./Pages/Maps/Maps";
 import "./custom.css";
 
 export default class App extends Component {

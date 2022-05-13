@@ -15,12 +15,12 @@ function LoginPage(Login) {
                 <h2>Prisijungti</h2>
                 {/* Error */}
                 <div className='form-group'>
-                    <label htmlFor='email'>El. paštas</label>
+                    <label htmlFor='email'>Email</label>
                     <input type='email' name='email' id='email' onChange={e => setDetails({ ...details, email: e.target.value })} value={details.email} />
                 </div>
 
                 <div className='form-group'>
-                    <label htmlFor='password'>Slaptažodis</label>
+                    <label htmlFor='password'>Password</label>
                     <input type='password' name='password' id='password' onChange={e => setDetails({ ...details, password: e.target.value })} value={details.password} />
                 </div>
                 <input type='submit' className='btn btn-primary' value='Prisijungti' />
