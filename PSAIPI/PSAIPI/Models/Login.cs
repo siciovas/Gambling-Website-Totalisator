@@ -11,9 +11,5 @@ namespace PSAIPI.Models
         [Required(ErrorMessage = "Please enter your password")]
         public string Password { get; set; }
 
-        public Login()
-        {
-
-        }
     }
 }

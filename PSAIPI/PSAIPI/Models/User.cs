@@ -22,5 +22,13 @@ namespace PSAIPI.Models
         public bool IsLoggedIn { get; set; }
 
         public League_member LeagueMember { get; set; }
+        public RoleType Role { get; set; }
+
+        public enum RoleType
+        {
+            Paprastas_naudotojas,
+            Admin,
+            CustomerSpecialist
+        }
     }
 }

@@ -34,19 +34,5 @@ namespace PSAIPI.Models
         [Required (ErrorMessage = "Email is required")]
         public string Email { get; set; }
 
-        public string IP { get; set; }
-
-        public int ActiveTime { get; set; }
-
-        public bool IsLoggedIn { get; set; }
-
-        public Roles Role { get; set; }
-
-        public Register()
-        {
-
-        }
-
-
     }
 }
