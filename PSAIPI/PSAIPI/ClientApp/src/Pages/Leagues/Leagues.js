@@ -30,7 +30,7 @@ const Leagues = ({ navigation }) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
           };
-        const response = await fetch(`https://localhost:7217/api/league/joinLeague/${1}/${id}`, requestOptions);
+        const response = await fetch(`https://localhost:7217/api/league/joinLeague/${5}/${id}`, requestOptions);
         console.log(response.status);
         if (response.status === 409) {
             toastErrorr();

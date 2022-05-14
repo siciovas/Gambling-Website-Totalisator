@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PSAIPI.Data;
 
@@ -11,9 +12,10 @@ using PSAIPI.Data;
 namespace PSAIPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220514084333_Created bets model")]
+    partial class Createdbetsmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,15 +45,10 @@ namespace PSAIPI.Migrations
                     b.Property<bool>("IsValid")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LeagueMemberId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MatchId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LeagueMemberId");
 
                     b.HasIndex("MatchId");
 
@@ -112,7 +109,7 @@ namespace PSAIPI.Migrations
 
                     b.HasIndex("UserId")
                         .IsUnique();
-                    b.ToTable("League_members", (string)null);
+
                     b.ToTable("League_members");
                 });
 
@@ -120,10 +117,7 @@ namespace PSAIPI.Migrations
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
                     b.Property<string>("Arena")
                         .HasColumnType("nvarchar(max)");
 
@@ -299,19 +293,11 @@ namespace PSAIPI.Migrations
 
             modelBuilder.Entity("PSAIPI.Models.Bet", b =>
                 {
-                    b.HasOne("PSAIPI.Models.League_member", "LeagueMember")
-                        .WithMany()
-                        .HasForeignKey("LeagueMemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PSAIPI.Models.Match", "Match")
                         .WithMany()
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("LeagueMember");
 
                     b.Navigation("Match");
                 });

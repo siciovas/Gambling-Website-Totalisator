@@ -1,10 +1,11 @@
 import react, { useState, useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from "react-router-dom";
 import moment from 'moment-timezone';
 
 const Matches = () => {
     const [allMatches, setAllMatches] = useState([]);
-
+    const history = useHistory();
     const options = {
         method: 'GET',
         headers: {
@@ -16,12 +17,15 @@ const Matches = () => {
     useEffect(async () => {
         const matchesResponse = await fetch(`https://localhost:7217/api/match/`);
         const matchesResponseJSON = await matchesResponse.json();
+        console.log(matchesResponseJSON);
         const t = new Date(matchesResponseJSON[0].startDate).toISOString();
         setAllMatches(matchesResponseJSON);
     }, [])
 
     const importData = async () => {
-        
+        const data = await fetch(`https://api-basketball.p.rapidapi.com/odds?league=12&season=2021-2022`, options)
+        const response = await data.json();
+        console.log(response.response[0].game.id);
         
         const data = await fetch(`https://api-basketball.p.rapidapi.com/odds?league=12&season=2021-2022`, options)
         const response = await data.json();
@@ -30,6 +34,7 @@ const Matches = () => {
             response.response.map((m) => {
                 return (
                     {
+                        Id: m.game.id,
                         StartDate: new Date(m.game.date).toISOString(),
                         League: m.league.name,
                         Status: 0,
@@ -52,11 +57,29 @@ const Matches = () => {
           };
           console.log("a");
           const response1 = await fetch(`https://localhost:7217/api/match/`, requestOptions);
+    }
+
+    const openBets = (id) => {
+        const match = allMatches.filter((m) => m.id === id);
+        console.log(match[0].startDate < new Date());
+        console.log(moment(match[0].startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm:ss"));
+        console.log(moment(new Date()).format("YYYY-MM-DD HH:mm:ss"));
+        if(moment(match[0].startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm:ss").localeCompare(moment(new Date()).format("YYYY-MM-DD HH:mm:ss")) == -1
+            || moment(match[0].startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm:ss").localeCompare(moment(new Date()).format("YYYY-MM-DD HH:mm:ss")) == 0) {
+            toastErrorrTooLate();
+        } else {
+            history.push(`/match/${id}/bets`);
+        }
+        
+    }
+
+    const toastErrorrTooLate= () => {
+        toast.error("Too late to make this bet!");
+      }
           console.log(response1);
         // console.log(response);
         // setAllMatches(response.response);
     }
-
     return (
         <>
             <h1>NBA Matches</h1>
@@ -67,6 +90,7 @@ const Matches = () => {
                 <th scope="col">#</th>
                 <th scope="col">Rungtynės</th>
                 <th scope="col">Pradžios laikas</th>
+                <th ></th>
                 </tr>
             </thead>
             <tbody>
@@ -75,13 +99,15 @@ const Matches = () => {
                         <tr>
                         <th scope="row">{++index}</th>
                         <td>{m.team1.teamName} vs {m.team2.teamName}</td>
+                        <td>{moment(m.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm")}</td>
+                        <td><button className="btn btn-success" onClick={() => openBets(m.id)}>Bet</button></td>
                         <td>{moment(m.startDate).format("YYYY-MM-DD HH:mm")}</td>
                         </tr>
                     )
                 })}
             </tbody>
             </table>
-            
+            <ToastContainer />
         </>
     )
 }

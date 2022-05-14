@@ -13,12 +13,14 @@ namespace PSAIPI.Data
         public DbSet<Prize> Prizes { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Bet> Bets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
             modelBuilder.Entity<User>().HasOne(a => a.LeagueMember).WithOne(a => a.User).HasForeignKey<League_member>(c => c.UserId);
             modelBuilder.Entity<Match>().Property(u => u.Status).HasConversion<string>();
+            modelBuilder.Entity<Match>().Property(p => p.Id).ValueGeneratedNever();
         }
     }
 }
