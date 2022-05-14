@@ -50,7 +50,7 @@ namespace PSAIPI.Repositories
 
         public async Task<League_member?> GetMemberById(int id)
         {
-            return await _context.League_members.FindAsync(id);
+            return await _context.League_members.Where(m => m.UserId == id).SingleAsync();
         }
 
         public async Task<int> AddUserToLeague(int id, int leagueID)

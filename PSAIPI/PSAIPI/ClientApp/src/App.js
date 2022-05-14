@@ -8,6 +8,8 @@ import Leagues from "./Pages/Leagues/Leagues";
 import League from "./Pages/Leagues/League";
 import LeagueForm from "./Pages/Leagues/LeagueForm";
 import Prizes from "./Pages/Prizes/Prizes";
+import Matches from "./Pages/Matches/Matches";
+import MatchWithBets from "./Pages/Matches/MatchWithBets";
 import "./custom.css";
 
 export default class App extends Component {
@@ -23,6 +25,8 @@ export default class App extends Component {
         <Route path="/leagueForm" component={LeagueForm} />
         <Route path="/league/:id" component={League} />
         <Route path="/prizes" component={Prizes} />
+        <Route path="/matches" component={Matches} />
+        <Route path="/match/:id/bets" component={MatchWithBets} />
       </Layout>
     );
   }
