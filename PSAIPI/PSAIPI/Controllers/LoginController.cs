@@ -16,5 +16,23 @@ namespace PSAIPI.Controllers
         {
             userRepository = new UserRepository(context);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Login(LoginPayload userPayload)
+        {
+            var user = await userRepository.GetUserByEmail(userPayload.Email);
+
+            if (user != null)
+            {
+  
+                if (user.Password == userPayload.Password)
+                {
+                    return Ok(user.Id);
+                }
+
+            }
+
+            return Unauthorized("Wrong login");
+        }
     }
 }

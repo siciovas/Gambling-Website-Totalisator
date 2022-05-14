@@ -13,17 +13,17 @@ namespace PSAIPI.Repositories
             _context = context;
         }
 
-        public async Task<List<User>> GetUsers(int id)
+        public async Task<List<User>> GetAllUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> Create(User user)
+        public async Task<int> CreateUser(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return user;
+            return user.Id;
         }
 
         public async Task<User> GetUserById(int id)
