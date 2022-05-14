@@ -119,7 +119,6 @@ namespace PSAIPI.Migrations
             modelBuilder.Entity("PSAIPI.Models.Match", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 

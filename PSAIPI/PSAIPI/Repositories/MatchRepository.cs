@@ -12,7 +12,7 @@ namespace PSAIPI.Repositories
             _context = context;
         }
 
-        public async Task<List<Match>> GetAllMatches()
+        public async Task<List<Match>> GetAllMatches() { 
             return await _context.Matches.Include(a => a.Team1).Include(a => a.Team2).ToListAsync();
             var matches = await _context.Matches.Include(a => a.Team1).Include(a => a.Team2).ToListAsync();
             return await _context.Matches.ToListAsync();
@@ -25,7 +25,6 @@ namespace PSAIPI.Repositories
                 var team1Id = allTeams.Where(a => a.TeamName == match.Team1.TeamName).Select(a => a.Id).FirstOrDefault();
                 var team2Id = allTeams.Where(a => a.TeamName == match.Team2.TeamName).Select(a => a.Id).FirstOrDefault();
                 var matchExist = _context.Matches.Where(a => a.Id == match.Id).FirstOrDefault();
-                var matchExist = _context.Matches.Where(a => a.StartDate == match.StartDate && a.Team1Id == team1Id && a.Team2Id == team2Id).FirstOrDefault();
                 if (matchExist is null)
                 {
                 var temp = new Match

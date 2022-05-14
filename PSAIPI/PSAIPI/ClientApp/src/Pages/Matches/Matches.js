@@ -25,10 +25,6 @@ const Matches = () => {
     const importData = async () => {
         const data = await fetch(`https://api-basketball.p.rapidapi.com/odds?league=12&season=2021-2022`, options)
         const response = await data.json();
-        console.log(response.response[0].game.id);
-        
-        const data = await fetch(`https://api-basketball.p.rapidapi.com/odds?league=12&season=2021-2022`, options)
-        const response = await data.json();
         console.log(response);
         const matches = { matches:
             response.response.map((m) => {
@@ -76,10 +72,6 @@ const Matches = () => {
     const toastErrorrTooLate= () => {
         toast.error("Too late to make this bet!");
       }
-          console.log(response1);
-        // console.log(response);
-        // setAllMatches(response.response);
-    }
     return (
         <>
             <h1>NBA Matches</h1>
@@ -90,6 +82,7 @@ const Matches = () => {
                 <th scope="col">#</th>
                 <th scope="col">Rungtynės</th>
                 <th scope="col">Pradžios laikas</th>
+                <th></th>
                 <th ></th>
                 </tr>
             </thead>
