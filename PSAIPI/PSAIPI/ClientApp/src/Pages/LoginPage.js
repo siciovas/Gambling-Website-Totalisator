@@ -1,16 +1,33 @@
-﻿import React, { useState } from 'react'
+﻿import React, { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 function LoginPage(Login) {
 
     const [details, setDetails] = useState({ email: "", password: "" });
 
-    const submitHandler = e => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-    }
 
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(details)
+          };
+          const response = await fetch(`https://localhost:7217/api/login/`, requestOptions);
+          if (response.ok) {
+            const addedId = await response.json();
+            console.log(addedId);
+          } else if(response.status === 401) {
+            toastError();
+          }
+    }
+    const toastError = () => {
+        toast.error("Impossible to login.");
+      }
 
     return (
-        <form onSubmit={submitHandler}>
+        <><form onSubmit={submitHandler}>
             <div className='form-inner'>
                 <h2>Prisijungti</h2>
                 {/* Error */}
@@ -26,7 +43,7 @@ function LoginPage(Login) {
                 <input type='submit' className='btn btn-primary' value='Prisijungti' />
 
             </div>
-        </form>
+        </form><ToastContainer /></>
     )
 }
 

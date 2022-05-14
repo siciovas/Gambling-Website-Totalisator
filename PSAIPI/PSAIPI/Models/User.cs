@@ -17,10 +17,18 @@ namespace PSAIPI.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string RegistrationIP { get; set; }
+        public string RegistrationIP { get; set; } = string.Empty;
         public bool IsConfirmed { get; set; }
         public bool IsLoggedIn { get; set; }
 
-        public League_member LeagueMember { get; set; }
+        public League_member? LeagueMember { get; set; }
+        public RoleType Role { get; set; }
+
+        public enum RoleType
+        {
+            Paprastas_naudotojas,
+            Admin,
+            CustomerSpecialist
+        }
     }
 }
