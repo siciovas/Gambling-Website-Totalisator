@@ -6,7 +6,6 @@ import moment from 'moment-timezone';
 const Matches = () => {
     const [allMatches, setAllMatches] = useState([]);
     const history = useHistory();
-
     const options = {
         method: 'GET',
         headers: {
@@ -19,14 +18,18 @@ const Matches = () => {
         const matchesResponse = await fetch(`https://localhost:7217/api/match/`);
         const matchesResponseJSON = await matchesResponse.json();
         console.log(matchesResponseJSON);
+        const t = new Date(matchesResponseJSON[0].startDate).toISOString();
         setAllMatches(matchesResponseJSON);
     }, [])
 
     const importData = async () => {
-        
         const data = await fetch(`https://api-basketball.p.rapidapi.com/odds?league=12&season=2021-2022`, options)
         const response = await data.json();
         console.log(response.response[0].game.id);
+        
+        const data = await fetch(`https://api-basketball.p.rapidapi.com/odds?league=12&season=2021-2022`, options)
+        const response = await data.json();
+        console.log(response);
         const matches = { matches:
             response.response.map((m) => {
                 return (
@@ -73,7 +76,10 @@ const Matches = () => {
     const toastErrorrTooLate= () => {
         toast.error("Too late to make this bet!");
       }
-
+          console.log(response1);
+        // console.log(response);
+        // setAllMatches(response.response);
+    }
     return (
         <>
             <h1>NBA Matches</h1>
@@ -95,6 +101,7 @@ const Matches = () => {
                         <td>{m.team1.teamName} vs {m.team2.teamName}</td>
                         <td>{moment(m.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm")}</td>
                         <td><button className="btn btn-success" onClick={() => openBets(m.id)}>Bet</button></td>
+                        <td>{moment(m.startDate).format("YYYY-MM-DD HH:mm")}</td>
                         </tr>
                     )
                 })}

@@ -17,9 +17,7 @@ namespace PSAIPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<League>().ToTable("Leagues");
-            modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<League_member>().ToTable("League_members");
+            
             modelBuilder.Entity<User>().HasOne(a => a.LeagueMember).WithOne(a => a.User).HasForeignKey<League_member>(c => c.UserId);
             modelBuilder.Entity<Match>().Property(u => u.Status).HasConversion<string>();
             modelBuilder.Entity<Match>().Property(p => p.Id).ValueGeneratedNever();
