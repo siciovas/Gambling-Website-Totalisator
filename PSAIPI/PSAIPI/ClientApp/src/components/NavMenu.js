@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./NavMenu.css";
+import { useHistory } from "react-router-dom";
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -20,7 +21,14 @@ export class NavMenu extends Component {
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
       collapsed: true,
+      isLogged: false,
     };
+  }
+
+  componentDidMount() {
+    const userLoggedIn = JSON.parse(localStorage.getItem("isLogged"));
+    console.log(userLoggedIn);
+    this.setState({ isLogged: userLoggedIn });
   }
 
   toggleNavbar() {
@@ -67,21 +75,49 @@ export class NavMenu extends Component {
                     Žemėlapis
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/register-page">
-                    Register
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/login-page">
-                    Login
-                  </NavLink>
-                </NavItem>
+
+                {!this.state.isLogged && (
+                  <>
+                    <NavItem>
+                      <NavLink
+                        tag={Link}
+                        className="text-dark"
+                        to="/register-page"
+                      >
+                        Register
+                      </NavLink>
+                    </NavItem>
+
+                    <NavItem>
+                      <NavLink
+                        tag={Link}
+                        className="text-dark"
+                        to="/login-page"
+                      >
+                        Login
+                      </NavLink>
+                    </NavItem>
+                  </>
+                )}
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/matches">
                     Peržiūrėti varžybas
                   </NavLink>
                 </NavItem>
+                {this.state.isLogged && (
+                  <NavItem>
+                    <NavLink
+                      tag={Link}
+                      className="text-dark"
+                      onClick={() => {
+                        localStorage.clear();
+                        window.location.replace("/login-page");
+                      }}
+                    >
+                      Logout
+                    </NavLink>
+                  </NavItem>
+                )}
               </ul>
             </Collapse>
           </Container>
