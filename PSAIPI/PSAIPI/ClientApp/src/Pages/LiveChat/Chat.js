@@ -32,7 +32,9 @@ const Chat = () => {
 
       await connection.start();
       await connection.invoke("JoinRoom", { name, room });
-      await connection.invoke("NotifySupport", "Test");
+      if(localStorage.getItem("roleId") != 2) {
+        await connection.invoke("NotifySupport", "Test");
+      }
       setConnection(connection);
     } catch (e) {
       console.log(e);
@@ -58,7 +60,7 @@ const Chat = () => {
   return (
       <>
         <div>
-            <button className='btn btn-success' onClick={() => joinRoom(Math.random().toString(), 'Support')}>Pradeti pokalbi</button>
+            <button className='btn btn-success' onClick={() => joinRoom(localStorage.getItem("roleId") == 2 ? "Support" : "User", 'Support')}>Pradeti pokalbi</button>
         </div>
         {connection &&
             <>
@@ -73,10 +75,6 @@ const Chat = () => {
     </>
 
   )
-    {/* {!connection
-      ? <Lobby joinRoom={joinRoom} />
-      : <Chat sendMessage={sendMessage} messages={messages} users={users} closeConnection={closeConnection} />} */}
-
 }
 
 export default Chat;

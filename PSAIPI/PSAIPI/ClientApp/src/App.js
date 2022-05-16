@@ -15,6 +15,7 @@ import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import Maps from "./Pages/Maps/Maps";
 import "./custom.css";
 import PrivateRoute from "./components/PrivateRoute";
+import { ToastContainer, toast } from "react-toastify";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -32,16 +33,26 @@ export default class App extends Component {
         .withAutomaticReconnect()
         .build();
 
+      const roleId = localStorage.getItem("roleId");
+
       this.setState({ connection: connection })
 
+      console.log(roleId);
       connection.on("NotifySupport", (message) => {
-        console.log(message);
+        console.log("AA");
+        if(roleId == 2) {
+          this.toastError();
+        }
       });
       connection.start();
     } catch (e) {
       console.log(e);
     }
   }
+
+  toastError = () => {
+    toast.error("Need support");
+  };
 
   render() {
     return (
@@ -57,6 +68,7 @@ export default class App extends Component {
         <PrivateRoute path="/match/:id/bets" component={MatchWithBets} />
         <PrivateRoute path="/maps" component={Maps} />
         <PrivateRoute path="/supportChat" component={Chat} />
+        <ToastContainer />
       </Layout>
     );
   }
