@@ -39,7 +39,6 @@ export default class App extends Component {
 
       console.log(roleId);
       connection.on("NotifySupport", (message) => {
-        console.log("AA");
         if(roleId == 2) {
           this.toastError();
         }
@@ -48,6 +47,45 @@ export default class App extends Component {
     } catch (e) {
       console.log(e);
     }
+    const options = {
+      method: 'GET',
+      headers: {
+          'X-RapidAPI-Host': 'api-basketball.p.rapidapi.com',
+          'X-RapidAPI-Key': 'b681a7b402msh4470b0de5525d25p1d48f1jsne1e6bb92413b'
+      }
+    };
+    this.timer = setInterval(async () => {
+      const data = await fetch(`https://api-basketball.p.rapidapi.com/odds?league=12&season=2021-2022`, options)
+        const response = await data.json();
+        console.log(response);
+        const matches = { matches:
+            response.response.map((m) => {
+                return (
+                    {
+                        Id: m.game.id,
+                        StartDate: new Date(m.game.date).toISOString(),
+                        League: m.league.name,
+                        Status: 0,
+                        Team1:
+                            {
+                                TeamName: m.game.teams.home.name
+                            },
+                        Team2:
+                            {
+                                TeamName: m.game.teams.away.name
+                            }
+                    })  
+            })
+        }
+        console.log(matches);
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(matches)
+          };
+          console.log("a");
+          const response1 = await fetch(`https://localhost:7217/api/match/`, requestOptions);
+    }, 43200000)
   }
 
   toastError = () => {
