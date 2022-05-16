@@ -10,76 +10,13 @@ const MatchWithBets = () => {
     const [allBets, setAllBets] = useState([]);
     const [team, setTeam] = useState("");
     const [betPayload, setBetPayload] = useState({
-        bet: {
-            BetName: "string",
+            betName: "string",
             date: "2022-05-16T17:53:45.381Z",
             betAmount: 0,
             isValid: true,
             matchId: 0,
-            Match: {
-                id: 0,
-                startDate: "2022-05-16T17:53:45.381Z",
-                endDate: "2022-05-16T17:53:45.381Z",
-                city: "string",
-                league: "string",
-                arena: "string",
-                broadcaster: "string",
-                homeTeamPoints: 0,
-                awayTeamPoints: 0,
-                status: 0,
-                team1Id: 0,
-                team1: {
-                    id: 0,
-                    city: "string",
-                    teamName: "string",
-                    founded: "2022-05-16T17:53:45.381Z",
-                    teamColours: "string",
-                    titles: "string",
-                    winsInARow: 0,
-                    losesInARow: 0
-                },
-                team2Id: 0,
-                team2: {
-                    id: 0,
-                    city: "string",
-                    teamName: "string",
-                    founded: "2022-05-16T17:53:45.381Z",
-                    teamColours: "string",
-                    titles: "string",
-                    winsInARow: 0,
-                    losesInARow: 0
-                }
-            },
             leagueMemberId: 0,
-            leagueMember: {
-                id: 0,
-                winningAmount: 0,
-                loosingAmount: 0,
-                rating: 0,
-                balance: 0,
-                leagueID: 2,
-                userId: 3,
-                user: {
-                    id: 0,
-                    name: "string",
-                    surname: "string",
-                    identityCode: "string",
-                    yearOfBirth: 0,
-                    city: "string",
-                    street: "string",
-                    postCode: "string",
-                    phoneNumber: "string",
-                    email: "string",
-                    password: "string",
-                    registrationIP: "string",
-                    isConfirmed: true,
-                    isLoggedIn: true,
-                    leagueMember: "string",
-                    role: 0
-                }
-            }
-        }
-    });
+        });
 
     const params = useParams();
 
@@ -102,18 +39,17 @@ const MatchWithBets = () => {
 
     }, [])
 
-    const addBet = async (bet, name) => {
-        
-            const requestOptions = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(betPayload)
-            };
-            const response = await fetch(`https://localhost:7217/api/bet/`, requestOptions);
-            if (response.ok) {
-                const addedId = await response.json();
-                toast("Statymas pateiktas!")
-            } 
+    const addBet = async () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(betPayload)
+        };
+        const response = await fetch(`https://localhost:7217/api/bet/`, requestOptions);
+        if (response.ok) {
+            const addedId = await response.json();
+            toast("Statymas pateiktas!")
+        } 
     }
 
     return (
@@ -139,7 +75,7 @@ const MatchWithBets = () => {
                                                 <span>{bet.value}</span>
                                             <span>{bet.odd}</span>
 
-                                            <Button onClick={() => addBet(bet, b.name)}>Statyti</Button>
+                                            <Button onClick={() => addBet()}>Statyti</Button>
                                         </div>
                                        
                                     </li>
