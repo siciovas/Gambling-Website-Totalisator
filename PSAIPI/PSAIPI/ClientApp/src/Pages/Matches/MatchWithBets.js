@@ -8,15 +8,9 @@ import './MatchWithBets.css';
 
 const MatchWithBets = () => {
     const [allBets, setAllBets] = useState([]);
+    const [matchId, setMatchId] = useState(0);
     const [team, setTeam] = useState("");
-    const [betPayload, setBetPayload] = useState({
-            betName: "string",
-            date: "2022-05-16T17:53:45.381Z",
-            betAmount: 0,
-            isValid: true,
-            matchId: 0,
-            leagueMemberId: 0,
-        });
+    const [betPayload, setBetPayload] = useState({});
 
     const params = useParams();
 
@@ -34,16 +28,28 @@ const MatchWithBets = () => {
          const response = await data.json();
          setAllBets(response.response[0].bookmakers[0].bets);
          const team = `${response.response[0].game.teams.home.name} - ${response.response[0].game.teams.away.name} ${moment(response.response[0].game.date).format("YYYY-MM-DD HH:mm")}`;
-         setTeam(team);
+        setTeam(team);
+        setMatchId(response.response[0].game.id);
          console.log(response.response[0]);
 
     }, [])
 
-    const addBet = async () => {
+    const addBet = async (bet, name) => {
+        var payload = 
+            {
+                betName: bet.odd + bet.value + name,
+                date: "2022-05-16T17:53:45.381Z",
+                betAmount: 100,
+                isValid: true,
+                matchId: matchId,
+                leagueMemberId: 2
+            };
+        console.log("aaaa")
+        console.log(payload);
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(betPayload)
+            body: JSON.stringify(payload)
         };
         const response = await fetch(`https://localhost:7217/api/bet/`, requestOptions);
         if (response.ok) {
@@ -75,7 +81,7 @@ const MatchWithBets = () => {
                                                 <span>{bet.value}</span>
                                             <span>{bet.odd}</span>
 
-                                            <Button onClick={() => addBet()}>Statyti</Button>
+                                            <Button onClick={() => addBet(bet, b.name)}>Statyti</Button>
                                         </div>
                                        
                                     </li>
