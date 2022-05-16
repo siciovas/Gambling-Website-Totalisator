@@ -10,12 +10,49 @@ import LeagueForm from "./Pages/Leagues/LeagueForm";
 import Prizes from "./Pages/Prizes/Prizes";
 import Matches from "./Pages/Matches/Matches";
 import MatchWithBets from "./Pages/Matches/MatchWithBets";
+import Chat from "./Pages/LiveChat/Chat";
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import Maps from "./Pages/Maps/Maps";
 import "./custom.css";
 import PrivateRoute from "./components/PrivateRoute";
+import { ToastContainer, toast } from "react-toastify";
 
 export default class App extends Component {
   static displayName = App.name;
+
+  constructor(props){
+    super(props);
+    this.state = {notify: false };
+  }
+  
+  componentDidMount(){
+    try {
+      const connection = new HubConnectionBuilder()
+        .withUrl("https://localhost:7217/chat")
+        .configureLogging(LogLevel.Information)
+        .withAutomaticReconnect()
+        .build();
+
+      const roleId = localStorage.getItem("roleId");
+
+      this.setState({ connection: connection })
+
+      console.log(roleId);
+      connection.on("NotifySupport", (message) => {
+        console.log("AA");
+        if(roleId == 2) {
+          this.toastError();
+        }
+      });
+      connection.start();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  toastError = () => {
+    toast.error("Need support");
+  };
 
   render() {
     return (
@@ -30,6 +67,8 @@ export default class App extends Component {
         <PrivateRoute path="/matches" component={Matches} />
         <PrivateRoute path="/match/:id/bets" component={MatchWithBets} />
         <PrivateRoute path="/maps" component={Maps} />
+        <PrivateRoute path="/supportChat" component={Chat} />
+        <ToastContainer />
       </Layout>
     );
   }

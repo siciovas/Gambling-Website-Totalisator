@@ -18,10 +18,11 @@ function LoginPage(Login) {
       requestOptions
     );
     if (response.ok) {
-      const addedId = await response.json();
-      console.log(addedId);
-      localStorage.setItem("userId", JSON.stringify(addedId));
+      const userPayload = await response.json();
+      console.log(userPayload);
+      localStorage.setItem("userId", JSON.stringify(userPayload.id));
       localStorage.setItem("isLogged", JSON.stringify(true));
+      localStorage.setItem("roleId", JSON.stringify(userPayload.roleId));
       window.location.replace("/");
     } else if (response.status === 401) {
       toastError();

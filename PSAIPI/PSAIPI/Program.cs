@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using PSAIPI.Controllers;
 using PSAIPI.Data;
+using PSAIPI.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +15,18 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(c =>
+builder.Services.AddCors(options =>
 {
-    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    options.AddPolicy(name: "Cors", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
 });
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<IDictionary<string, UserLiveChatConnection>>(opts => new Dictionary<string, UserLiveChatConnection>());
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 var app = builder.Build();
@@ -25,7 +35,6 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     options.RoutePrefix = String.Empty;
 });
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -33,10 +42,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseSwagger(x => x.SerializeAsV2 = true);
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors("Cors");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<MessageController>("/chat");
+});
 
 
 app.MapControllerRoute(

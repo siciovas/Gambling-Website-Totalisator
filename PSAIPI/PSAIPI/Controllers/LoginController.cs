@@ -18,7 +18,7 @@ namespace PSAIPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Login(LoginPayload userPayload)
+        public async Task<ActionResult<LoginSucceed>> Login(LoginPayload userPayload)
         {
             var user = await userRepository.GetUserByEmail(userPayload.Email);
 
@@ -27,7 +27,12 @@ namespace PSAIPI.Controllers
   
                 if (user.Password == userPayload.Password)
                 {
-                    return Ok(user.Id);
+                    var userLoggedPayload = new LoginSucceed
+                    {
+                        Id = user.Id,
+                        RoleId = (int)user.Role,
+                    };
+                    return Ok(userLoggedPayload);
                 }
 
             }
