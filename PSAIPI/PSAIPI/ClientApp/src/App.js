@@ -11,6 +11,7 @@ import Prizes from "./Pages/Prizes/Prizes";
 import Matches from "./Pages/Matches/Matches";
 import MatchWithBets from "./Pages/Matches/MatchWithBets";
 import Maps from "./Pages/Maps/Maps";
+import Bets from "./Pages/Bets/Bets"
 import "./custom.css";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -29,7 +30,8 @@ export default class App extends Component {
         <PrivateRoute path="/prizes" component={Prizes} />
         <PrivateRoute path="/matches" component={Matches} />
         <PrivateRoute path="/match/:id/bets" component={MatchWithBets} />
-        <PrivateRoute path="/maps" component={Maps} />
+            <PrivateRoute path="/maps" component={Maps} />
+            <PrivateRoute path="/bets" component={Bets} />
       </Layout>
     );
   }
