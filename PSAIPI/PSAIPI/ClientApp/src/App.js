@@ -12,7 +12,9 @@ import Matches from "./Pages/Matches/Matches";
 import MatchWithBets from "./Pages/Matches/MatchWithBets";
 import Chat from "./Pages/LiveChat/Chat";
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import Maps from "./Pages/Maps/Maps";
 import "./custom.css";
+import PrivateRoute from "./components/PrivateRoute";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -44,7 +46,7 @@ export default class App extends Component {
   render() {
     return (
       <Layout>
-        <Route exact path="/" component={Home} />
+        <PrivateRoute path="/" component={Home} exact />
         <Route path="/login-page" component={LoginPage} />
         <Route path="/register-page" component={RegisterPage} />
         <Route path="/leagues" component={Leagues} />
@@ -54,6 +56,7 @@ export default class App extends Component {
         <Route path="/matches" component={Matches} />
         <Route path="/match/:id/bets" component={MatchWithBets} />
         <Route path="/supportChat" component={Chat} />
+        <PrivateRoute path="/maps" component={Maps} />
       </Layout>
     );
   }
