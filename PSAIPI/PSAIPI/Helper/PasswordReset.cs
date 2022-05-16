@@ -32,10 +32,8 @@ namespace PSAIPI.Helper
             }
         }
 
-        public static string HandlePasswordReset(User user)
-        {
-            string password = CreatePassword(10);
-            
+        public static void HandlePasswordReset(User user)
+        {            
             try
             {
                 using (MailMessage mail = new MailMessage())
@@ -45,7 +43,7 @@ namespace PSAIPI.Helper
                     mail.Subject = "Reset your password. | PSAIPI";
                     mail.Body = $@"<h3>Hello, {user.Name}.</h3>
                                 <p>You made a request to reset your password.</p>
-                                <p>New password is: <b>{password}</b></p>";
+                                <p>New password is: <b>{user.Password}</b></p>";
                     mail.IsBodyHtml = true;
 
                     using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
@@ -60,8 +58,6 @@ namespace PSAIPI.Helper
             {
 
             }
-
-            return password;
             
         }
     }
