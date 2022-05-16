@@ -6,6 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 
 const Bet = ({ betInfo }) => {
     const [bet, setBet] = useState({});
+    const [ready, setReady] = useState(false);
     const [show, setShow] = useState(false);
     const params = useParams();
     const history = useHistory();
@@ -14,6 +15,23 @@ const Bet = ({ betInfo }) => {
         const response = await fetch(`https://localhost:7217/api/bet/${params.id}`);
         const data = await response.json();
         setBet(data);
+
+        const response1 = await fetch("https://localhost:7217/api/match");
+        console.log(response1);
+        const data1 = await response1.json();
+      
+        var match = data1.find((x) => bet.id == x.matchId);
+        console.log(match);
+        var temp;
+        temp = data;
+        console.log("aaa")
+        console.log(temp);
+        temp.match = match;
+      
+        setBet(temp);
+        console.log(bet);
+        setReady(true);
+
     }, []);
 
     const deleteBet = async () => {
@@ -24,7 +42,7 @@ const Bet = ({ betInfo }) => {
         }
         else if (response.ok) {
             setShow(false);
-            history.push("/leagues");
+            history.push("/bets");
         }
     }
 
@@ -47,44 +65,32 @@ const Bet = ({ betInfo }) => {
                 <button className="btn btn-danger" onClick={onDelete}>Ištrinti</button>
             </div>
             <div className="d-flex justify-content-center">
-                <h3>{league.title}</h3>
+                {ready &&
+                    <div>
+                    <h3>{bet.match.team1.teamName} vs {bet.match.team2.teamName}</h3>
+                    <h2> {bet.betName }</h2>
+                    </div>
+                }
+               
             </div>
             <div className="d-flex justify-content-center mb-5">
                 <img class="img-thumbnail" src={logo} alt="Card image cap" />
             </div>
             <div>
-                <table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Narys</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {leagueMembers.map((x => {
-                            return (
-                                <tr>
-                                    <th scope="col">{x.id}</th>
-                                    <th scope="col">{x.user.name + " " + x.user.surname}</th>
-                                </tr>
-                            )
-                        }))}
-                    </tbody>
-                </table>
             </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Ištrinti {league.title} lygą</Modal.Title>
+                    <Modal.Title>Ištrinti  spejima</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Ar tikrai norite ištrinti šią lygą?
+                    Ar tikrai norite ištrinti šį spėjimą?
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={deleteLeague}>Taip</Button>
+                    <Button variant="danger" >Taip</Button>
                 </Modal.Footer>
             </Modal>
         </div>
     )
 }
 
-export default League;
+export default Bet;

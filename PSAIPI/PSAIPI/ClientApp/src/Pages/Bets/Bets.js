@@ -48,7 +48,7 @@ const Bets = ({ navigation }) => {
     }
 
     const Edit = (b) => {
-
+        history.push(`/bet/${b.id}`);
     }
 
     return (
