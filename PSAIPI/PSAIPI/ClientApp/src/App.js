@@ -49,14 +49,14 @@ export default class App extends Component {
         <PrivateRoute path="/" component={Home} exact />
         <Route path="/login-page" component={LoginPage} />
         <Route path="/register-page" component={RegisterPage} />
-        <Route path="/leagues" component={Leagues} />
-        <Route path="/leagueForm" component={LeagueForm} />
-        <Route path="/league/:id" component={League} />
-        <Route path="/prizes" component={Prizes} />
-        <Route path="/matches" component={Matches} />
-        <Route path="/match/:id/bets" component={MatchWithBets} />
-        <Route path="/supportChat" component={Chat} />
+        <PrivateRoute path="/leagues" component={Leagues} />
+        <PrivateRoute path="/leagueForm" component={LeagueForm} />
+        <PrivateRoute path="/league/:id" component={League} />
+        <PrivateRoute path="/prizes" component={Prizes} />
+        <PrivateRoute path="/matches" component={Matches} />
+        <PrivateRoute path="/match/:id/bets" component={MatchWithBets} />
         <PrivateRoute path="/maps" component={Maps} />
+        <PrivateRoute path="/supportChat" component={Chat} />
       </Layout>
     );
   }
