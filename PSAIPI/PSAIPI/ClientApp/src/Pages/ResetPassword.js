@@ -18,7 +18,7 @@ function ResetPassword() {
           requestOptions
         );
         if (response.ok) {
-            console.log('send')
+            toastSucc();
         }
         else if (response.status === 400) {
           toastError();
@@ -26,6 +26,9 @@ function ResetPassword() {
       };
       const toastError = () => {
         toast.error("Impossible to send.");
+      };
+      const toastSucc = () => {
+        toast.success("Email sent.");
       };
     
 

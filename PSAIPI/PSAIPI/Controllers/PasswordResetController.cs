@@ -27,8 +27,7 @@ namespace PSAIPI.Controllers
                 return BadRequest("Impossible to send password");
             }
 
-            var password = PasswordReset.HandlePasswordReset(user);
-            await userRepository.UpdatePassword(user.Email, password);
+            PasswordReset.HandlePasswordReset(user);
             return Ok();
             
         }
