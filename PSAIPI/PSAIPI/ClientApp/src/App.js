@@ -10,10 +10,36 @@ import LeagueForm from "./Pages/Leagues/LeagueForm";
 import Prizes from "./Pages/Prizes/Prizes";
 import Matches from "./Pages/Matches/Matches";
 import MatchWithBets from "./Pages/Matches/MatchWithBets";
+import Chat from "./Pages/LiveChat/Chat";
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import "./custom.css";
 
 export default class App extends Component {
   static displayName = App.name;
+
+  constructor(props){
+    super(props);
+    this.state = {notify: false };
+  }
+  
+  componentDidMount(){
+    try {
+      const connection = new HubConnectionBuilder()
+        .withUrl("https://localhost:7217/chat")
+        .configureLogging(LogLevel.Information)
+        .withAutomaticReconnect()
+        .build();
+
+      this.setState({ connection: connection })
+
+      connection.on("NotifySupport", (message) => {
+        console.log(message);
+      });
+      connection.start();
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   render() {
     return (
@@ -27,6 +53,7 @@ export default class App extends Component {
         <Route path="/prizes" component={Prizes} />
         <Route path="/matches" component={Matches} />
         <Route path="/match/:id/bets" component={MatchWithBets} />
+        <Route path="/supportChat" component={Chat} />
       </Layout>
     );
   }
