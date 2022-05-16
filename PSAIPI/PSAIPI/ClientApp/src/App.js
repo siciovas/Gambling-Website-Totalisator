@@ -22,7 +22,7 @@ export default class App extends Component {
       <Layout>
         <PrivateRoute path="/" component={Home} exact />
         <Route path="/login-page" component={LoginPage} />
-        <PrivateRoute path="/register-page" component={RegisterPage} />
+        <Route path="/register-page" component={RegisterPage} />
         <PrivateRoute path="/leagues" component={Leagues} />
         <PrivateRoute path="/leagueForm" component={LeagueForm} />
         <PrivateRoute path="/league/:id" component={League} />
