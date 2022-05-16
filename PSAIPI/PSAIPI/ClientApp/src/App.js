@@ -13,6 +13,7 @@ import MatchWithBets from "./Pages/Matches/MatchWithBets";
 import Chat from "./Pages/LiveChat/Chat";
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import Maps from "./Pages/Maps/Maps";
+import ResetPassword from "./Pages/ResetPassword";
 import "./custom.css";
 import PrivateRoute from "./components/PrivateRoute";
 import { ToastContainer, toast } from "react-toastify";
@@ -98,6 +99,7 @@ export default class App extends Component {
         <PrivateRoute path="/" component={Home} exact />
         <Route path="/login-page" component={LoginPage} />
         <Route path="/register-page" component={RegisterPage} />
+        <Route path="/resetPassword" component={ResetPassword} />
         <PrivateRoute path="/leagues" component={Leagues} />
         <PrivateRoute path="/leagueForm" component={LeagueForm} />
         <PrivateRoute path="/league/:id" component={League} />
