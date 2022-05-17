@@ -29,11 +29,10 @@ namespace PSAIPI.Repositories
             return bet.Id;
         }
 
-        public async Task<int> Edit(Bet league)
+        public async Task<int> Edit(Bet bet)
         {
-            var betToEdit = await _context.Leagues.FindAsync(league.Id);
-         /*   betToEdit.Title = league.Title;
-            betToEdit.Description = league.Description;*/
+            var betToEdit = await _context.Bets.FindAsync(bet.Id);
+            betToEdit.BetName = bet.BetName;
             await _context.SaveChangesAsync();
             return betToEdit.Id;
         }

@@ -44,8 +44,9 @@ const Bets = ({ navigation }) => {
     }, []);
  
     const Edit = (b) => {
-        if (!ToLateToEdit) {
-            console.log("not to late")
+        if (!ToLateToEdit) { 
+            console.log("not to late");
+            history.push(`/betForm/${b.id}`);
         }
         else {
             toastErrorrTooLate();
@@ -72,7 +73,7 @@ const Bets = ({ navigation }) => {
     }
 
     const onDelete = (b) => {
-        if (ToLateToEdit) {
+        if (!ToLateToEdit) {
             setShow(true);
             setBetId(b.id);
         }

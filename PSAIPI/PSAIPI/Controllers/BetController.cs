@@ -45,27 +45,13 @@ namespace PSAIPI.Controllers
         public async Task<ActionResult<int>> EditBet(Bet request)
         {
 
-            var allLeagues = await betRepository.GetAll();
-            var editingLeague = allLeagues.Find(l => l.Id == request.Id);
+            var allBets = await betRepository.GetAll();
+            var editingBet = allBets.Find(l => l.Id == request.Id);
 
-            if (editingLeague.Match == request.Match)
-            {
-                var leagueId = await betRepository.Edit(request);
+            var leagueId = await betRepository.Edit(request);
 
-                return Ok(leagueId);
-            }
-            else
-            {
-                /*var existingLeague = allLeagues.Find(l => l.Match == request.Match);
-                if (existingLeague == null)
-                {
-                    var leagueId = await betRepository.Edit(request);
-
-                    return Ok(leagueId);
-
-                }*/
-                return Conflict("Bet like this already exists");
-            }
+            return Ok(leagueId);
+           
         }
 
         [HttpDelete("{id}")]

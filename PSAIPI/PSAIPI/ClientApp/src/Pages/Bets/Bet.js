@@ -60,21 +60,20 @@ const Bet = ({ betInfo }) => {
 
     return (
         <div className="container">
-            <div className="d-flex justify-content-end">
-                <button className="btn btn-primary me-5" onClick={editLeague}>Redaguoti</button>
-                <button className="btn btn-danger" onClick={onDelete}>Ištrinti</button>
+            <div className="d-flex justify-content-center mb-5">
+                <img class="img-thumbnail" src={logo} alt="Card image cap" />
             </div>
             <div className="d-flex justify-content-center">
                 {ready &&
                     <div>
                     <h3>{bet.match.team1.teamName} vs {bet.match.team2.teamName}</h3>
-                    <h2> {bet.betName }</h2>
+                    <hr/>
+                    <h2> {bet.betName}</h2>
+                    <hr />
+                    <h2> {bet.date}</h2>
                     </div>
                 }
                
-            </div>
-            <div className="d-flex justify-content-center mb-5">
-                <img class="img-thumbnail" src={logo} alt="Card image cap" />
             </div>
             <div>
             </div>

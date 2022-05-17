@@ -36,7 +36,7 @@ const MatchWithBets = () => {
     const addBet = async (bet, name) => {
         var payload = 
             {
-                betName: bet.odd + bet.value + name,
+                betName: `${name} ${bet.value} ${bet.odd}`,
                 date: "2022-05-16T17:53:45.381Z",
                 betAmount: 100,
                 isValid: true,
