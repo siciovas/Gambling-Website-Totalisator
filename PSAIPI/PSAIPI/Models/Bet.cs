@@ -14,10 +14,10 @@ namespace PSAIPI.Models
 
         [ForeignKey("MatchId")]
         public int MatchId { get; set; }
-        public Match Match { get; set; }
+        public Match? Match { get; set; }
 
         [ForeignKey("LeagueMemberId")]
         public int LeagueMemberId { get; set; }
-        public League_member LeagueMember { get; set; }
+        public League_member? LeagueMember { get; set; }
     }
 }

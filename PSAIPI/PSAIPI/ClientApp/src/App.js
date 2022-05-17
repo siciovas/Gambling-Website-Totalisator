@@ -13,6 +13,9 @@ import MatchWithBets from "./Pages/Matches/MatchWithBets";
 import Chat from "./Pages/LiveChat/Chat";
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import Maps from "./Pages/Maps/Maps";
+import Bets from "./Pages/Bets/Bets";
+import Bet from "./Pages/Bets/Bet";
+import BetForm from "./Pages/Bets/BetForm";
 import ResetPassword from "./Pages/ResetPassword";
 import "./custom.css";
 import PrivateRoute from "./components/PrivateRoute";
@@ -107,6 +110,9 @@ export default class App extends Component {
         <PrivateRoute path="/matches" component={Matches} />
         <PrivateRoute path="/match/:id/bets" component={MatchWithBets} />
         <PrivateRoute path="/maps" component={Maps} />
+        <PrivateRoute path="/bets" component={Bets} />
+        <PrivateRoute path="/bet/:id" component={Bet} />
+        <PrivateRoute path="/betForm/:id" component={BetForm} />
         <PrivateRoute path="/supportChat" component={Chat} />
         <ToastContainer />
       </Layout>

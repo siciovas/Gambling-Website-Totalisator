@@ -103,7 +103,21 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/matches">
                     Peržiūrėti varžybas
                   </NavLink>
-                </NavItem>
+                            </NavItem>
+                            {this.state.isLogged && (
+                                <NavItem>
+                                    <NavLink
+                                        tag={Link}
+                                        className="text-dark"
+                                        onClick={() => {
+                                            window.location.replace("/bets");
+                                        }}
+                                    >
+                                        Spejimai
+                                    </NavLink>
+                                </NavItem>
+
+                            )}
                 {this.state.isLogged && (
                   <NavItem>
                     <NavLink
