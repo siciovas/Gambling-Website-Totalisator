@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSAIPI.Data;
 using PSAIPI.Models;
-using System.Net;
-using System.Web.Mvc;
+using PSAIPI.Payloads;
 
 namespace PSAIPI.Repositories
 {
@@ -48,9 +47,15 @@ namespace PSAIPI.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<League_member?> GetMemberById(int id)
+        public Task<League_member?> GetMemberById(int id)
         {
-            return await _context.League_members.Where(m => m.UserId == id).SingleAsync();
+            return _context.League_members.FirstOrDefaultAsync(m => m.UserId == id);
+        }
+
+        public Task<League_member?> GetMemberByLeagueIdAndUserId(int leagueId, int userId)
+        {
+            return _context.League_members
+                .FirstOrDefaultAsync(m => m.LeagueID == leagueId && m.UserId == userId);
         }
 
         public async Task<int> AddUserToLeague(int id, int leagueID)
@@ -69,6 +74,15 @@ namespace PSAIPI.Repositories
         {
             var leagueMembers = await _context.League_members.Include(x => x.User).Where(x => x.LeagueID == id).ToListAsync();
             return leagueMembers;
+        }
+        public async Task RemoveAmountOfPoints(UpdateUserBalancePayload payload)
+        {
+            var leagueMember = await _context.League_members.FirstOrDefaultAsync(m => m.UserId == payload.userId);
+            if (leagueMember is not null)
+            {
+                leagueMember.Balance -= payload.prizeCost;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
