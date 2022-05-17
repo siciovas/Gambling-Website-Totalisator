@@ -14,26 +14,23 @@ const Prizes = ({ navigation }) => {
     setPrizes(data);
   }, []);
 
-  const handleRedeemPrize = async (prizeCost) => {
+  const handleRedeemPrize = async (prizeId) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    };
     let userId = JSON.parse(localStorage.getItem("userId"));
-    const response = await fetch(`https://localhost:7217/api/prize/${userId}`);
-    const data = await response.json();
-    console.log(response.status);
-    let { balance } = data;
-    if (balance > prizeCost) {
-      console.log("User has enough points to redeem the prize");
-      const requestOptions = {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, balance, prizeCost }),
-      };
-      await fetch(`https://localhost:7217/api/prize/${userId}`, requestOptions);
+
+    const response = await fetch(
+      `https://localhost:7217/api/prize/${userId}/${prizeId}`,
+      requestOptions
+    );
+
+    if (response.ok) {
       toast.success("Prize redeemed");
     } else {
-      console.log("Prize costs more than user's balance");
       toast.error("Could not redeem prize");
     }
-    console.log(balance);
   };
 
   return (
@@ -53,7 +50,7 @@ const Prizes = ({ navigation }) => {
                 <p class="card-text">Kaina (taškais): {prize.cost}</p>
                 <button
                   className="btn btn-success"
-                  onClick={() => handleRedeemPrize(prize.cost)}
+                  onClick={() => handleRedeemPrize(prize.id)}
                 >
                   Atsiimti prizą
                 </button>

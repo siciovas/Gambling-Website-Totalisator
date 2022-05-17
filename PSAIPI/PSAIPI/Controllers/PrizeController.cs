@@ -36,16 +36,20 @@ namespace PSAIPI.Controllers
             return Ok(leagueMember);
         }
 
-        [HttpPut("{userId}")]
-        public async Task<ActionResult<League>> UpdateLeagueMembersBalance(UpdateUserBalancePayload payload)
+        [HttpPut("{userId}/{prizeId}")]
+        public async Task<ActionResult<League>> SelectPrize(int userId, int prizeId)
         {
-            var leagueMember = await leagueRepository.GetMemberById(payload.userId);
-            if (leagueMember is null)
+            var prize = await prizeRepository.GetPrizeById(prizeId);
+            var balance = await leagueRepository.SelectPoints(userId);
+            
+            if (balance > prize.Cost)
             {
-                return BadRequest("League member not found");
+                await leagueRepository.RemoveAmountOfPoints(userId, prize.Cost);
+                return Ok();
             }
-            await leagueRepository.RemoveAmountOfPoints(payload);
-            return Ok();
+
+
+            return BadRequest();
         }
     }
 }

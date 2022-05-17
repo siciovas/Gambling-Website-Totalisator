@@ -75,14 +75,21 @@ namespace PSAIPI.Repositories
             var leagueMembers = await _context.League_members.Include(x => x.User).Where(x => x.LeagueID == id).ToListAsync();
             return leagueMembers;
         }
-        public async Task RemoveAmountOfPoints(UpdateUserBalancePayload payload)
+        public async Task RemoveAmountOfPoints(int userId, int cost)
         {
-            var leagueMember = await _context.League_members.FirstOrDefaultAsync(m => m.UserId == payload.userId);
+            var leagueMember = await _context.League_members.FirstOrDefaultAsync(m => m.UserId == userId);
             if (leagueMember is not null)
             {
-                leagueMember.Balance -= payload.prizeCost;
+                leagueMember.Balance -= cost;
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<double> SelectPoints(int id)
+        {
+            var balance = (await _context.League_members.Select(x => new { x.Balance, x.UserId})
+                .FirstOrDefaultAsync(x => x.UserId == id)).Balance;
+            return balance;
         }
     }
 }
