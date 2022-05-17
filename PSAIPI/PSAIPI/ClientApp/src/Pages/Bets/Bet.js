@@ -78,17 +78,6 @@ const Bet = ({ betInfo }) => {
             </div>
             <div>
             </div>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Ištrinti  spejima</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Ar tikrai norite ištrinti šį spėjimą?
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="danger" >Taip</Button>
-                </Modal.Footer>
-            </Modal>
         </div>
     )
 }

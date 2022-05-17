@@ -36,19 +36,9 @@ namespace PSAIPI.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> AddBet(Bet bet)
         {
-
-            var allBets = await betRepository.GetAll();
-            var existingBet = allBets.Find(b => b.Match == bet.Match && b.LeagueMemberId == bet.LeagueMemberId);
-            if (existingBet == null)
-            {
-                var betId = await betRepository.Add(bet);
-
-                return Ok(betId);
-            }
-            else
-            {
-                return Conflict("Bet is already exists");
-            }
+           var betId = await betRepository.Add(bet);
+           return Ok(betId);
+            
         }
 
         [HttpPut]

@@ -3,7 +3,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import moment from "moment-timezone";
 import Button from 'react-bootstrap/Button'
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './MatchWithBets.css';
 
 const MatchWithBets = () => {
@@ -44,13 +43,12 @@ const MatchWithBets = () => {
                 matchId: matchId,
                 leagueMemberId: 2
             };
-        console.log("aaaa")
-        console.log(payload);
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         };
+
         const response = await fetch(`https://localhost:7217/api/bet/`, requestOptions);
         if (response.ok) {
             const addedId = await response.json();
@@ -93,7 +91,9 @@ const MatchWithBets = () => {
                     </div>
                 );
             })}
-        </div>
+            </div>
+            <ToastContainer />
+
         </>
     )
 }
