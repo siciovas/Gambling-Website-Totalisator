@@ -3,11 +3,13 @@ import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import MessageContainer from './MessageContainer';
 import SendMessageForm from './SendMessageForm';
 import './Chat.css';
+import { useHistory } from 'react-router-dom';
 
 const Chat = () => {
   const [connection, setConnection] = useState();
   const [messages, setMessages] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [isConnectionClosed, setIsConnectionClosed] = useState(false);
+  const history = useHistory();
 
   const joinRoom = async (name, room) => {
     try {
@@ -20,14 +22,9 @@ const Chat = () => {
         setMessages(messages => [...messages, { name, message }]);
       });
 
-      connection.on("UsersInRoom", (users) => {
-        setUsers(users);
-      });
-
       connection.onclose(e => {
         setConnection();
         setMessages([]);
-        setUsers([]);
       });
 
       await connection.start();
@@ -52,15 +49,21 @@ const Chat = () => {
   const closeConnection = async () => {
     try {
       await connection.stop();
+      setIsConnectionClosed(true);
     } catch (e) {
       console.log(e);
     }
+  }
+
+  const openRatingPage = () => {
+    history.push(`/supportRate/`);
   }
 
   return (
       <>
         <div>
             <button className='btn btn-success' onClick={() => joinRoom(localStorage.getItem("roleId") == 2 ? "Support" : "User", 'Support')}>Pradeti pokalbi</button>
+            {(isConnectionClosed && localStorage.getItem("roleId") != 2) && <button className='btn btn-danger ml-5' onClick={() => openRatingPage()}>Įvertinti klientų aptarnavimo specialisto darbo kokybę</button>}
         </div>
         {connection &&
             <>

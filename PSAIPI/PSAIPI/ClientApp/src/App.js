@@ -20,6 +20,7 @@ import ResetPassword from "./Pages/ResetPassword";
 import "./custom.css";
 import PrivateRoute from "./components/PrivateRoute";
 import { ToastContainer, toast } from "react-toastify";
+import SupportRating from "./Pages/SupportRating/SupportRating";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -114,6 +115,7 @@ export default class App extends Component {
         <PrivateRoute path="/bet/:id" component={Bet} />
         <PrivateRoute path="/betForm/:id" component={BetForm} />
         <PrivateRoute path="/supportChat" component={Chat} />
+        <PrivateRoute path="/supportRate" component={SupportRating}/>
         <ToastContainer />
       </Layout>
     );
