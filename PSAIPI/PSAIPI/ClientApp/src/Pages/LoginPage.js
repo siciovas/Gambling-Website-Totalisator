@@ -1,9 +1,12 @@
 ﻿import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { useHistory } from 'react-router-dom';
 
 function LoginPage(Login) {
   const [details, setDetails] = useState({ email: "", password: "" });
+  
+  const history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -18,12 +21,13 @@ function LoginPage(Login) {
       requestOptions
     );
     if (response.ok) {
-      const addedId = await response.json();
-      console.log(addedId);
-      localStorage.setItem("userId", JSON.stringify(addedId));
+      const userPayload = await response.json();
+      console.log(userPayload);
+      localStorage.setItem("userId", JSON.stringify(userPayload.id));
       localStorage.setItem("isLogged", JSON.stringify(true));
+      localStorage.setItem("roleId", JSON.stringify(userPayload.roleId));
       window.location.replace("/");
-    } else if (response.status === 401) {
+    } else if (response.status === 400) {
       toastError();
     }
   };
@@ -62,11 +66,24 @@ function LoginPage(Login) {
               value={details.password}
             />
           </div>
+
+          <div className="form-group">
           <input
             type="submit"
             className="btn btn-primary"
             value="Prisijungti"
           />
+          </div>
+
+          <div className="form-group">
+          <input
+            type="submit"
+            onClick={()=> history.push("/resetPassword")}
+            className="btn btn-primary"
+            value="Pamiršau slaptažodį"
+          />
+          </div>
+
         </div>
       </form>
       <ToastContainer />

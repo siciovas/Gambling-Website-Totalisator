@@ -130,10 +130,13 @@ export class NavMenu extends Component {
                     >
                       Logout
                     </NavLink>
-                   </NavItem>
-
-                            )}
-                            
+                  </NavItem>
+                )}
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/supportChat">
+                    Pagalba gyvai
+                  </NavLink>
+                </NavItem>
               </ul>
             </Collapse>
           </Container>
