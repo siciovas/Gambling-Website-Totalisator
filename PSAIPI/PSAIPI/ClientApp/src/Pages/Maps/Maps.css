@@ -1,7 +1,28 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.Maps{
+    height: 600px;
+    width: 150vh;
+}
+
 .map{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.marker{
+    background-image: url('https://i.imgur.com/oz3r3Wq.png');
+    background-size: cover;
+    width: 22px;
+    height: 22px;
+}
+
+.marker-delivery{
+    width: 22px;
+    height: 22px;
+    background-color: red;
+    border-radius: 11px
 }
