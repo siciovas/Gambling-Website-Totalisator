@@ -12,9 +12,14 @@ namespace PSAIPI.Repositories
             _context = context;
         }
 
-        public async Task<List<Prize>> GetAll()
+        public async Task<List<Prize>> GetAllPrizes()
         {
             return await _context.Prizes.ToListAsync();
+        }
+
+        public async Task<Prize> GetPrizeById(int id)
+        {
+            return _context.Prizes.FirstOrDefault(x => x.Id == id);
         }
     }
 }

@@ -1,6 +1,7 @@
 import react, { useState, useEffect } from "react";
 import logo from "../../Helpers/images/prize.jpg";
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Prizes = ({ navigation }) => {
   const [prizes, setPrizes] = useState([]);
@@ -8,10 +9,29 @@ const Prizes = ({ navigation }) => {
 
   useEffect(async () => {
     const response = await fetch("https://localhost:7217/api/prize");
-    console.log(response);
     const data = await response.json();
+    console.log(data);
     setPrizes(data);
   }, []);
+
+  const handleRedeemPrize = async (prizeId) => {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    };
+    let userId = JSON.parse(localStorage.getItem("userId"));
+
+    const response = await fetch(
+      `https://localhost:7217/api/prize/${userId}/${prizeId}`,
+      requestOptions
+    );
+
+    if (response.ok) {
+      toast.success("Prize redeemed");
+    } else {
+      toast.error("Could not redeem prize");
+    }
+  };
 
   return (
     <div class="container-sm">
@@ -28,12 +48,18 @@ const Prizes = ({ navigation }) => {
                   <b>{prize.name}</b>
                 </p>
                 <p class="card-text">Kaina (taškais): {prize.cost}</p>
-                <button className="btn btn-success">Atsiimti prizą</button>
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleRedeemPrize(prize.id)}
+                >
+                  Atsiimti prizą
+                </button>
               </div>
             </div>
           );
         })}
       </div>
+      <ToastContainer />
     </div>
   );
 };

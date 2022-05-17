@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using PSAIPI.Data;
 using PSAIPI.Models;
 using PSAIPI.Repositories;
@@ -44,7 +42,8 @@ namespace PSAIPI.Controllers
                 var leagueId = await leagueRepository.Add(league);
 
                 return Ok(leagueId);
-            } else
+            }
+            else
             {
                 return Conflict("League is already exists");
             }
@@ -56,13 +55,14 @@ namespace PSAIPI.Controllers
 
             var allLeagues = await leagueRepository.GetAll();
             var editingLeague = allLeagues.Find(l => l.Id == request.Id);
-           
+
             if (editingLeague.Title == request.Title)
             {
                 var leagueId = await leagueRepository.Edit(request);
 
                 return Ok(leagueId);
-            } else
+            }
+            else
             {
                 var existingLeague = allLeagues.Find(l => l.Title == request.Title);
                 if (existingLeague == null)
@@ -101,6 +101,23 @@ namespace PSAIPI.Controllers
         public async Task<ActionResult<List<League_member>>> GetLeagueMembers(int leagueID)
         {
             return await leagueRepository.GetLeagueMembers(leagueID);
+        }
+
+        [HttpGet("members/{leagueID}/{userId}")]
+        public async Task<ActionResult<League>> Get(int leagueId, int userId)
+        {
+            var league = await leagueRepository.GetLeagueById(leagueId);
+            if (league is null)
+            {
+                return BadRequest("League not found");
+            }
+
+            var leagueMember = leagueRepository.GetMemberById(userId);
+            if (leagueMember is null)
+            {
+                return BadRequest("League member not found");
+            }
+            return Ok(leagueMember);
         }
     }
 }
