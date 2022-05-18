@@ -21,8 +21,15 @@ body {
 }
 
 .marker-delivery{
-    width: 22px;
-    height: 22px;
+    width: 10px;
+    height: 10px;
     background-color: red;
     border-radius: 11px
+}
+
+.marker-city{
+    background-image: url('https://www.freeiconspng.com/uploads/red-location-map-pin-icon-5.png');
+    background-size: cover;
+    width: 22px;
+    height: 22px;
 }

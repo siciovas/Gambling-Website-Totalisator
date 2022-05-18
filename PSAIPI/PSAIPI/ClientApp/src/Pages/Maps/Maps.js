@@ -7,8 +7,30 @@ import '@tomtom-international/web-sdk-maps/dist/maps.css'
 const Maps = () => {
   const mapElement = useRef()
   const [map, setMap] = useState({})
+
   const [latitude, setLatitude] = useState(54.9047)
   const [longitude, setLongitude] = useState(23.9568)
+
+  const KaunasLat = 54.898521
+  const KaunasLong = 23.903597
+
+  const VilniusLat = 54.687157
+  const VilniusLong = 25.279652
+
+  const KlaipedaLat = 55.703297
+  const KlaipedaLong = 21.144279
+
+  const SiauliaiLat = 55.9349
+  const SiauliaiLong = 23.3137
+
+  const AlytusLat = 54.3963
+  const AlytusLong = 24.0459
+
+  const PanevezysLat = 55.7348
+  const PanevezysLong = 24.3575
+
+  const UtenaLat = 55.5000
+  const UtenaLong = 25.6094
 
   const convertToPoints = (lngLat) => {
     return {
@@ -34,7 +56,6 @@ const Maps = () => {
       paint: {
         'line-color': '#4a90e2',
         'line-width': 6
-  
       }
     })
   }
@@ -84,9 +105,27 @@ const Maps = () => {
         const lngLat = marker.getLngLat()
         setLongitude(lngLat.lng)
         setLatitude(lngLat.lat)
-      })
-      
+      })      
     }
+
+    const addDeliveryCityMarker = (ltg, lat) => {
+      const element = document.createElement('div')
+      element.className = 'marker-city'
+      new tt.Marker({
+        element: element
+      })
+      .setLngLat([ltg, lat])
+      .addTo(map)
+    }
+
+    addDeliveryCityMarker(KaunasLong, KaunasLat)
+    addDeliveryCityMarker(VilniusLong, VilniusLat)
+    addDeliveryCityMarker(KlaipedaLong, KlaipedaLat)
+    addDeliveryCityMarker(SiauliaiLong, SiauliaiLat)
+    addDeliveryCityMarker(PanevezysLong, PanevezysLat)
+    addDeliveryCityMarker(AlytusLong, AlytusLat)
+    addDeliveryCityMarker(UtenaLong, UtenaLat)
+
     addMarker()
 
     const sortedDestinations = (locations) => {
