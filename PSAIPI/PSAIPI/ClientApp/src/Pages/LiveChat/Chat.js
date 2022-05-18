@@ -4,6 +4,8 @@ import MessageContainer from './MessageContainer';
 import SendMessageForm from './SendMessageForm';
 import './Chat.css';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+
 
 const Chat = () => {
   const [connection, setConnection] = useState();
@@ -21,6 +23,13 @@ const Chat = () => {
       connection.on("ReceiveMessage", (name, message) => {
         setMessages(messages => [...messages, { name, message }]);
       });
+
+      connection.on("SupportBusy", (message) =>{
+          if(localStorage.getItem("roleId") != 2){
+              toast.error(message);
+              setMessages(messages => [...messages, { name: 'Support', message: 'Support is busy right now' }]);
+          }
+      })
 
       connection.onclose(e => {
         setConnection();
@@ -40,7 +49,11 @@ const Chat = () => {
 
   const sendMessage = async (message) => {
     try {
-      await connection.invoke("SendMessage", message);
+        if(message.replace(/\s+/g, '') == ''){
+            toast.error("You cannot send empty message");
+        } else {
+            await connection.invoke("SendMessage", message);
+        }
     } catch (e) {
       console.log(e);
     }
@@ -62,7 +75,8 @@ const Chat = () => {
   return (
       <>
         <div>
-            <button className='btn btn-success' onClick={() => joinRoom(localStorage.getItem("roleId") == 2 ? "Support" : "User", 'Support')}>Pradeti pokalbi</button>
+            <ToastContainer />
+            {!connection && <button className='btn btn-success' onClick={() => joinRoom(localStorage.getItem("roleId") == 2 ? "Support" : "User", 'Support')}>Pradeti pokalbi</button>}
             {(isConnectionClosed && localStorage.getItem("roleId") != 2) && <button className='btn btn-danger ml-5' onClick={() => openRatingPage()}>Įvertinti klientų aptarnavimo specialisto darbo kokybę</button>}
         </div>
         {connection &&

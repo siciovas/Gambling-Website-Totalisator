@@ -10,7 +10,7 @@ namespace PSAIPI.Controllers
 
         public MessageController(IDictionary<string, UserLiveChatConnection> connections)
         {
-            _botUser = "MyChat Bot";
+            _botUser = "Support Live Chat";
             _connections = connections;
         }
 
@@ -48,6 +48,11 @@ namespace PSAIPI.Controllers
         public async Task NotifySupport(string message)
         {
             await Clients.All.SendAsync("NotifySupport", "NeedSupport");
+        }
+
+        public async Task SupportBusy(string message)
+        {
+            await Clients.All.SendAsync("SupportBusy", message);
         }
 
         public Task SendUsersConnected(string room)
