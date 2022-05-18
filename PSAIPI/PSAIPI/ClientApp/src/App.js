@@ -21,6 +21,8 @@ import "./custom.css";
 import PrivateRoute from "./components/PrivateRoute";
 import { ToastContainer, toast } from "react-toastify";
 import SupportRating from "./Pages/SupportRating/SupportRating";
+import InviteFriend from "./Pages/InviteFriend/InviteFriend";
+import GenerateInviteFriendLink from "./Pages/InviteFriend/GenerateInviteFriendLink";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -116,6 +118,8 @@ export default class App extends Component {
         <PrivateRoute path="/betForm/:id" component={BetForm} />
         <PrivateRoute path="/supportChat" component={Chat} />
         <PrivateRoute path="/supportRate" component={SupportRating}/>
+        <Route path="/invite/:id/:league" component={InviteFriend} />
+        <PrivateRoute path="/generate-link" component={GenerateInviteFriendLink} />
         <ToastContainer />
       </Layout>
     );
