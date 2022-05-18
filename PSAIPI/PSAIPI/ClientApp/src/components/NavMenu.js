@@ -137,6 +137,11 @@ export class NavMenu extends Component {
                     Pagalba gyvai
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/generate-link">
+                    Pakviesk draugą į lygą
+                  </NavLink>
+                </NavItem>
               </ul>
             </Collapse>
           </Container>

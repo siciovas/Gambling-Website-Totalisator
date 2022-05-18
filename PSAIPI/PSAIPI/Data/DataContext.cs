@@ -15,6 +15,7 @@ namespace PSAIPI.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<Bet> Bets { get; set; }
         public DbSet<Help_rating> Help_ratings { get; set; }
+        public DbSet<LeagueInvitation> LeagueInvitations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
