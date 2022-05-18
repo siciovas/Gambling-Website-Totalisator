@@ -29,6 +29,26 @@ namespace PSAIPI.Repositories
             return bet.Id;
         }
 
+        public async Task<int> ChangeBetStatusToLost(Bet bet)
+        {
+            var allBets = await GetAll();
+            var lostBets = allBets.Where(ab => ab.MatchId == bet.MatchId && ab.BetName == bet.BetName).ToList();
+            lostBets.ForEach(ab => ab.Status = "Lost");
+            
+            var betsChanged = await _context.SaveChangesAsync();
+            return betsChanged;
+        }
+
+        public async Task<int> ChangeBetStatusToWon(Bet bet)
+        {
+            var allBets = await GetAll();
+            var wonBets = allBets.Where(ab => ab.MatchId == bet.MatchId && ab.BetName == bet.BetName).ToList();
+            wonBets.ForEach(ab => ab.Status = "Won");
+
+            var betsChanged = await _context.SaveChangesAsync();
+            return betsChanged;
+        }
+
         public async Task<int> Edit(Bet bet)
         {
             var betToEdit = await _context.Bets.FindAsync(bet.Id);

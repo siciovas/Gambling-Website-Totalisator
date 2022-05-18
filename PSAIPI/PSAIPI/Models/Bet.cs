@@ -11,6 +11,7 @@ namespace PSAIPI.Models
         public DateTime Date { get; set; }
         public double BetAmount { get; set; }
         public bool IsValid { get; set; }
+        public string Status { get; set; }
 
         [ForeignKey("MatchId")]
         public int MatchId { get; set; }

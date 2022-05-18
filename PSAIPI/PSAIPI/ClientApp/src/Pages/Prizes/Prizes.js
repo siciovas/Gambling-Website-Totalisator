@@ -27,9 +27,9 @@ const Prizes = ({ navigation }) => {
     );
 
     if (response.ok) {
-      toast.success("Prize redeemed");
+      toast.success("Prizo atsiėmimas užsakytas");
     } else {
-      toast.error("Could not redeem prize");
+      toast.error("Nepavyko atsiimti prizo");
     }
   };
 

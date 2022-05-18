@@ -27,8 +27,10 @@ export class NavMenu extends Component {
 
   componentDidMount() {
     const userLoggedIn = JSON.parse(localStorage.getItem("isLogged"));
+    const isUserAdmin = JSON.parse(localStorage.getItem("roleId")) == "1";
     console.log(userLoggedIn);
     this.setState({ isLogged: userLoggedIn });
+    this.setState({ isUserAdmin });
   }
 
   toggleNavbar() {
@@ -103,21 +105,20 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/matches">
                     Peržiūrėti varžybas
                   </NavLink>
-                            </NavItem>
-                            {this.state.isLogged && (
-                                <NavItem>
-                                    <NavLink
-                                        tag={Link}
-                                        className="text-dark"
-                                        onClick={() => {
-                                            window.location.replace("/bets");
-                                        }}
-                                    >
-                                        Spejimai
-                                    </NavLink>
-                                </NavItem>
-
-                            )}
+                </NavItem>
+                {this.state.isLogged && (
+                  <NavItem>
+                    <NavLink
+                      tag={Link}
+                      className="text-dark"
+                      onClick={() => {
+                        window.location.replace("/bets");
+                      }}
+                    >
+                      Spejimai
+                    </NavLink>
+                  </NavItem>
+                )}
                 {this.state.isLogged && (
                   <NavItem>
                     <NavLink
@@ -142,6 +143,19 @@ export class NavMenu extends Component {
                     Pakviesk draugą į lygą
                   </NavLink>
                 </NavItem>
+                {this.state.isUserAdmin && (
+                  <NavItem>
+                    <NavLink
+                      tag={Link}
+                      className="text-dark"
+                      onClick={() => {
+                        window.location.replace("/events");
+                      }}
+                    >
+                      Patvirtinti įvykių baigtis
+                    </NavLink>
+                  </NavItem>
+                )}
               </ul>
             </Collapse>
           </Container>
