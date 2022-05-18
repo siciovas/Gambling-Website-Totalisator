@@ -30,10 +30,10 @@ export default class App extends Component {
 
   constructor(props){
     super(props);
-    this.state = {notify: false };
+    this.state = {notify: false, connection: null };
   }
   
-  componentDidMount(){
+  async componentDidMount(){
     try {
       const connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7217/chat")
@@ -43,7 +43,7 @@ export default class App extends Component {
 
       const roleId = localStorage.getItem("roleId");
 
-      this.setState({ connection: connection })
+     
 
       console.log(roleId);
       connection.on("NotifySupport", (message) => {
@@ -51,7 +51,9 @@ export default class App extends Component {
           this.toastError();
         }
       });
+     
       connection.start();
+      this.setState({ connection: connection })
     } catch (e) {
       console.log(e);
     }
@@ -97,8 +99,23 @@ export default class App extends Component {
   }
 
   toastError = () => {
-    toast.error("Need support");
+    toast.info(this.SupportToast, { autoClose: false });
   };
+
+  sendMessage = async () => {
+    try {
+      await this.state.connection.invoke("SupportBusy", "Support is busy right now");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+   SupportToast = () => (
+    <div>
+      <span>Need support</span>
+      <button className="btn btn-success" onClick={this.sendMessage}>Notify that support is busy</button>
+    </div>
+  );
 
   render() {
     return (
@@ -122,7 +139,6 @@ export default class App extends Component {
         <Route path="/invite/:id/:league" component={InviteFriend} />
         <PrivateRoute path="/generate-link" component={GenerateInviteFriendLink} />
         <PrivateRoute path="/match/:id" component={Match} />
-        <ToastContainer />
       </Layout>
     );
   }

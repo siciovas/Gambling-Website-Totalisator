@@ -27,7 +27,7 @@ const Match = () => {
             <><div className="participants d-flex">
                 <div className="participant-home d-flex">
                     <span>{match.teams.home.name}</span>
-                    <img src={match.teams.home.logo}></img>
+                    <img className="team-logo" src={match.teams.home.logo}></img>
                 </div>
                 <div className="match-summary d-flex flex-column justify-content-center">
                     <div className="date d-flex justify-content-center">

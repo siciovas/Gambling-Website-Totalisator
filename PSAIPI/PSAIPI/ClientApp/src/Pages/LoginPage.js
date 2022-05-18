@@ -27,7 +27,7 @@ function LoginPage(Login) {
       localStorage.setItem("isLogged", JSON.stringify(true));
       localStorage.setItem("roleId", JSON.stringify(userPayload.roleId));
       window.location.replace("/");
-    } else if (response.status === 400) {
+    } else if (response.status === 401) {
       toastError();
     }
   };
