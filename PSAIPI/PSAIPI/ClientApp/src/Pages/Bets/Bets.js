@@ -44,7 +44,7 @@ const Bets = ({ navigation }) => {
     }, []);
  
     const Edit = (b) => {
-        if (!ToLateToEdit) { 
+        if (!ToLateToEdit(b)) { 
             console.log("not to late");
             history.push(`/betForm/${b.id}`);
         }
@@ -73,7 +73,7 @@ const Bets = ({ navigation }) => {
     }
 
     const onDelete = (b) => {
-        if (!ToLateToEdit) {
+        if (!ToLateToEdit(b)) {
             setShow(true);
             setBetId(b.id);
         }
@@ -87,9 +87,15 @@ const Bets = ({ navigation }) => {
         setShow(false);
     }
 
-    const ToLateToEdit = (b) => 
-        moment(b.match.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm:ss").localeCompare(moment(new Date()).format("YYYY-MM-DD HH:mm:ss")) == -1
+    const ToLateToEdit = (b) => {
+        console.log("1");
+        console.log(moment(b.match.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm:ss"));
+        console.log("2");
+        console.log(moment(new Date()).format("YYYY-MM-DD HH:mm:ss"));
+      return  moment(b.match.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm:ss").localeCompare(moment(new Date()).format("YYYY-MM-DD HH:mm:ss")) == -1
             || moment(b.match.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm:ss").localeCompare(moment(new Date()).format("YYYY-MM-DD HH:mm:ss")) == 0;
+    }
+       
     
 
     const toastErrorrTooLate = () => {
