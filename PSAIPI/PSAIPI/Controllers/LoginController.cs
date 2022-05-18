@@ -31,6 +31,7 @@ namespace PSAIPI.Controllers
                     {
                         Id = user.Id,
                         RoleId = (int)user.Role,
+                        LeagueMemberId = user.LeagueMember?.Id
                     };
                     return Ok(userLoggedPayload);
                 }

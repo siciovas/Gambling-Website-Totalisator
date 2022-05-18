@@ -33,7 +33,7 @@ namespace PSAIPI.Repositories
 
         public async Task<User> GetUserByEmail(string email)
         {
-            return _context.Users.FirstOrDefault(u => u.Email == email);
+            return _context.Users.Include(u => u.LeagueMember).FirstOrDefault(u => u.Email == email);
         }
 
         public async Task UpdatePassword(string email, string password)

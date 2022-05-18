@@ -66,7 +66,10 @@ const Matches = () => {
         } else {
             history.push(`/match/${id}/bets`);
         }
-        
+    }
+
+    const openMatch = (id) => {
+        history.push(`/match/${id}`);
     }
 
     const toastErrorrTooLate= () => {
@@ -94,7 +97,7 @@ const Matches = () => {
                         <td>{m.team1.teamName} vs {m.team2.teamName}</td>
                         <td>{moment(m.startDate).add(3, 'hours').format("YYYY-MM-DD HH:mm")}</td>
                         <td><button className="btn btn-success" onClick={() => openBets(m.id)}>Bet</button></td>
-                        <td>{moment(m.startDate).format("YYYY-MM-DD HH:mm")}</td>
+                        <td><button className="btn btn-success" onClick={() => openMatch(m.id)}>Peržiūrėti </button></td>
                         </tr>
                     )
                 })}
