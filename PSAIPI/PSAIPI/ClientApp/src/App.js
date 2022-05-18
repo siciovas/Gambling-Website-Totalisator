@@ -23,6 +23,7 @@ import { ToastContainer, toast } from "react-toastify";
 import SupportRating from "./Pages/SupportRating/SupportRating";
 import InviteFriend from "./Pages/InviteFriend/InviteFriend";
 import GenerateInviteFriendLink from "./Pages/InviteFriend/GenerateInviteFriendLink";
+import Match from "./Pages/Matches/Match";
 
 export default class App extends Component {
   static displayName = App.name;
@@ -120,6 +121,7 @@ export default class App extends Component {
         <PrivateRoute path="/supportRate" component={SupportRating}/>
         <Route path="/invite/:id/:league" component={InviteFriend} />
         <PrivateRoute path="/generate-link" component={GenerateInviteFriendLink} />
+        <PrivateRoute path="/match/:id" component={Match} />
         <ToastContainer />
       </Layout>
     );

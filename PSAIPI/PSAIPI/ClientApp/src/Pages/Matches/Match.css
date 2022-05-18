@@ -1,0 +1,106 @@
+.section {
+    font-size: 13px;
+    line-height: 16px;
+    margin-left: 27%;
+    width: 50%;
+}
+
+.participants{
+    justify-content: space-between;
+    width: 50%;
+    margin-left: 27%;
+    margin-bottom: 15px;
+}
+
+.score {
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.date {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.participant-home, .participant-away {
+    flex-direction: column;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.home-service, .score-service, .away-service {
+    border-style: solid;
+    justify-content: space-evenly;
+}
+
+.score-service{
+    background-color: black;
+}
+
+.qrt1, .qrt2, .qrt3, .qrt4, .ot{
+    align-items: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 50px;
+}
+
+.away-service {
+    border-style: solid;
+}
+
+.section-header {
+    border-radius: 4px;
+    color: #c8cdcd;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    margin-right: 200px;
+}
+
+.team-home {
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 1.23;
+    padding: 8px 10px;
+    white-space: nowrap;
+    margin-right: 200px;
+    width: 10%;
+}
+
+img {
+    width: 180px;
+    height: 180px;
+}
+
+.home-qrt1, .home-qrt2, .home-qrt3, .home-qrt4, .home-ot{
+    align-items: center;
+    color: black;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 50px;
+}
+.team-away {
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 1.23;
+    padding: 8px 10px;
+    white-space: nowrap;
+    margin-right: 200px;
+    width: 10%;
+}
+
+.away-qrt1, .away-qrt1, .away-qrt2, .away-qrt3, .away-qrt4, .away-ot {
+    align-items: center;
+    color: black;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 50px;
+}
