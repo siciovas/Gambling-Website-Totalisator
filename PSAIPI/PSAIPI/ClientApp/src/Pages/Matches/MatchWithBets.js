@@ -38,13 +38,19 @@ const MatchWithBets = () => {
   }, []);
 
   const addBet = async (bet, name) => {
+    let leagueMemberId = JSON.parse(localStorage.getItem("leagueMemberId"));
+    if (leagueMemberId == null) {
+      toast.error("Prieš atliekant spėjimą prisijunkite prie lygos");
+      return;
+    }
     var payload = {
-      betName: `${name} ${bet.value} ${bet.odd}`,
+      betName: `${name} | ${bet.value}`,
+      odds: bet.odd,
       date: "2022-05-16T17:53:45.381Z",
       betAmount: 100,
       isValid: true,
       matchId: matchId,
-      leagueMemberId: 2,
+      leagueMemberId: JSON.parse(localStorage.getItem("leagueMemberId")),
       status: "Pending",
     };
     const requestOptions = {

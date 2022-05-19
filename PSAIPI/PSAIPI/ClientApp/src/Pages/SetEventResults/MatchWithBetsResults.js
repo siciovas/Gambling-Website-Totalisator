@@ -38,14 +38,15 @@ const MatchWithBets = () => {
   }, []);
 
   const handleWin = async (bet, name) => {
-    let userId = localStorage.getItem("userId");
+    let leagueMemberId = localStorage.getItem("leagueMemberId");
     var payload = {
-      betName: `${name} ${bet.value} ${bet.odd}`,
+      betName: `${name} | ${bet.value}`,
+      odds: bet.odd,
       date: "2022-05-16T17:53:45.381Z",
       betAmount: 100,
       isValid: true,
       matchId: matchId,
-      leagueMemberId: 2,
+      leagueMemberId: leagueMemberId,
       status: "Won",
     };
     const requestOptions = {
@@ -55,22 +56,27 @@ const MatchWithBets = () => {
     };
 
     const response = await fetch(
-      `https://localhost:7217/api/MatchApproval/won${userId}`,
+      `https://localhost:7217/api/MatchApproval/won`,
       requestOptions
     );
-    if (response.ok) {
+    if (leagueMemberId == null) {
+      toast.error("Prisijunkite į lygą prieš atliekant spėjimą");
+    } else if (response.ok) {
       toast.success("Statymai pažymėti kaip laimėti");
     }
   };
 
   const handleLoss = async (bet, name) => {
+    let leagueMemberId = localStorage.getItem("leagueMemberId");
+    if (leagueMemberId == null) {
+    }
     var payload = {
-      betName: `${name} ${bet.value} ${bet.odd}`,
+      betName: `${name} | ${bet.value}`,
       date: "2022-05-16T17:53:45.381Z",
       betAmount: 100,
       isValid: true,
       matchId: matchId,
-      leagueMemberId: 2,
+      leagueMemberId: leagueMemberId,
       status: "Lost",
     };
     const requestOptions = {

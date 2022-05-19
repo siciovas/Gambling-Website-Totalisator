@@ -49,6 +49,15 @@ namespace PSAIPI.Repositories
             return betsChanged;
         }
 
+        public async Task<List<int>> GetWinnersLeagueIds(Bet bet)
+        {
+            var allBets = await GetAll();
+            var winnersLeagueIds = allBets.Where(ab => ab.MatchId == bet.MatchId && ab.BetName == bet.BetName)
+                .Select(b => b.LeagueMemberId).Distinct().ToList();
+
+            return winnersLeagueIds;
+        }
+
         public async Task<int> Edit(Bet bet)
         {
             var betToEdit = await _context.Bets.FindAsync(bet.Id);

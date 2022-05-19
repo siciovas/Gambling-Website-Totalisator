@@ -9,6 +9,7 @@ import League from "./Pages/Leagues/League";
 import LeagueForm from "./Pages/Leagues/LeagueForm";
 import Prizes from "./Pages/Prizes/Prizes";
 import Matches from "./Pages/Matches/Matches";
+import Match from "./Pages/Matches/Match";
 import MatchWithBets from "./Pages/Matches/MatchWithBets";
 import Chat from "./Pages/LiveChat/Chat";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
@@ -31,10 +32,10 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {notify: false, connection: null };
+    this.state = { notify: false, connection: null };
   }
-  
-  async componentDidMount(){
+
+  async componentDidMount() {
     try {
       const connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7217/chat")
@@ -44,17 +45,15 @@ export default class App extends Component {
 
       const roleId = localStorage.getItem("roleId");
 
-     
-
       console.log(roleId);
       connection.on("NotifySupport", (message) => {
         if (roleId == 2) {
           this.toastError();
         }
       });
-     
+
       connection.start();
-      this.setState({ connection: connection })
+      this.setState({ connection: connection });
     } catch (e) {
       console.log(e);
     }
@@ -108,16 +107,21 @@ export default class App extends Component {
 
   sendMessage = async () => {
     try {
-      await this.state.connection.invoke("SupportBusy", "Support is busy right now");
+      await this.state.connection.invoke(
+        "SupportBusy",
+        "Support is busy right now"
+      );
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-   SupportToast = () => (
+  SupportToast = () => (
     <div>
       <span>Need support</span>
-      <button className="btn btn-success" onClick={this.sendMessage}>Notify that support is busy</button>
+      <button className="btn btn-success" onClick={this.sendMessage}>
+        Notify that support is busy
+      </button>
     </div>
   );
 
@@ -151,9 +155,8 @@ export default class App extends Component {
           exact
           component={MatchWithBetsResults}
         />
-        <ToastContainer />
-        <PrivateRoute path="/generate-link" component={GenerateInviteFriendLink} />
         <PrivateRoute path="/match/:id" component={Match} />
+        <ToastContainer />
       </Layout>
     );
   }

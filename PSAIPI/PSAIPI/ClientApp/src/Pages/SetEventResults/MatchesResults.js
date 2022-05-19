@@ -15,7 +15,9 @@ const Matches = () => {
   };
 
   useEffect(async () => {
-    const matchesResponse = await fetch(`https://localhost:7217/api/match/`);
+    const matchesResponse = await fetch(
+      `https://localhost:7217/api/matchapproval/`
+    );
     const matchesResponseJSON = await matchesResponse.json();
     console.log(matchesResponseJSON);
     const t = new Date(matchesResponseJSON[0].startDate).toISOString();
