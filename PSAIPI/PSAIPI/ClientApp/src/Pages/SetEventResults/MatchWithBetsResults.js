@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import moment from "moment-timezone";
 import Button from "react-bootstrap/Button";
 import { ToastContainer, toast } from "react-toastify";
-import "./MatchWithBets.css";
+import "./MatchWithBetsResults.css";
 
 const MatchWithBets = () => {
   const [allBets, setAllBets] = useState([]);
@@ -37,7 +37,8 @@ const MatchWithBets = () => {
     console.log(response.response[0]);
   }, []);
 
-  const addBet = async (bet, name) => {
+  const handleWin = async (bet, name) => {
+    let leagueMemberId = localStorage.getItem("leagueMemberId");
     var payload = {
       betName: `${name} | ${bet.value}`,
       odds: bet.odd,
@@ -45,8 +46,35 @@ const MatchWithBets = () => {
       betAmount: 100,
       isValid: true,
       matchId: matchId,
-      leagueMemberId: JSON.parse(localStorage.getItem("leagueMemberId")),
-      status: "Pending",
+      leagueMemberId: leagueMemberId,
+      status: "Won",
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    };
+    const response = await fetch(
+      `https://localhost:7217/api/MatchApproval/won`,
+      requestOptions
+    );
+    if (leagueMemberId == null) {
+      toast.error("Prisijunkite į lygą prieš atliekant spėjimą");
+    } else if (response.ok) {
+      toast.success("Statymai pažymėti kaip laimėti");
+    }
+  };
+
+  const handleLoss = async (bet, name) => {
+    let leagueMemberId = localStorage.getItem("leagueMemberId");
+    var payload = {
+      betName: `${name} | ${bet.value}`,
+      date: "2022-05-16T17:53:45.381Z",
+      betAmount: 100,
+      isValid: true,
+      matchId: matchId,
+      leagueMemberId: leagueMemberId,
+      status: "Lost",
     };
     const requestOptions = {
       method: "POST",
@@ -55,12 +83,11 @@ const MatchWithBets = () => {
     };
 
     const response = await fetch(
-      `https://localhost:7217/api/bet/`,
+      `https://localhost:7217/api/MatchApproval/lost`,
       requestOptions
     );
     if (response.ok) {
-      const addedId = await response.json();
-      toast("Statymas pateiktas!");
+      toast.success("Statymai pažymėti kaip pralaimėti");
     }
   };
 
@@ -92,8 +119,11 @@ const MatchWithBets = () => {
                             <span>{bet.value}</span>
                             <span>{bet.odd}</span>
 
-                            <Button onClick={() => addBet(bet, b.name)}>
-                              Statyti
+                            <Button onClick={() => handleWin(bet, b.name)}>
+                              Laimėtas
+                            </Button>
+                            <Button onClick={() => handleLoss(bet, b.name)}>
+                              Pralaimėtas
                             </Button>
                           </div>
                         </li>

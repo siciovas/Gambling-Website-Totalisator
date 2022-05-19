@@ -1,0 +1,17 @@
+#accordion {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    text-align: center;
+}
+
+.card {
+    height: 255px;
+}
+
+.card-header{
+    background-color: black;
+}
+
+.card-header > h5 {
+    color: white;
+}

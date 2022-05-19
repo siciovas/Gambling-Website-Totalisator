@@ -47,9 +47,20 @@ namespace PSAIPI.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateWinnersBalance(League_member member, Bet bet)
+        {
+            member.Balance += 100 * bet.Odds;
+            await _context.SaveChangesAsync();
+        }
+
         public Task<League_member?> GetMemberById(int id)
         {
             return _context.League_members.FirstOrDefaultAsync(m => m.UserId == id);
+        }
+
+        public Task<League_member?> GetLeagueMemberById(int id)
+        {
+            return _context.League_members.FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public Task<League_member?> GetMemberByLeagueIdAndUserId(int leagueId, int userId)

@@ -8,9 +8,11 @@ namespace PSAIPI.Models
         [Key]
         public int Id { get; set; }
         public string BetName { get; set; }
+        public double Odds { get; set; }
         public DateTime Date { get; set; }
         public double BetAmount { get; set; }
         public bool IsValid { get; set; }
+        public string Status { get; set; }
 
         [ForeignKey("MatchId")]
         public int MatchId { get; set; }
