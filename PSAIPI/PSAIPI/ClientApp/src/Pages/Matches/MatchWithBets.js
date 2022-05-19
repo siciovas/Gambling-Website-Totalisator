@@ -38,11 +38,6 @@ const MatchWithBets = () => {
   }, []);
 
   const addBet = async (bet, name) => {
-    let leagueMemberId = JSON.parse(localStorage.getItem("leagueMemberId"));
-    if (leagueMemberId == null) {
-      toast.error("Prieš atliekant spėjimą prisijunkite prie lygos");
-      return;
-    }
     var payload = {
       betName: `${name} | ${bet.value}`,
       odds: bet.odd,

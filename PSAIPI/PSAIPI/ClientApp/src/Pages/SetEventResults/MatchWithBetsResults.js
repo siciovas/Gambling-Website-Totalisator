@@ -54,7 +54,6 @@ const MatchWithBets = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     };
-
     const response = await fetch(
       `https://localhost:7217/api/MatchApproval/won`,
       requestOptions
@@ -68,8 +67,6 @@ const MatchWithBets = () => {
 
   const handleLoss = async (bet, name) => {
     let leagueMemberId = localStorage.getItem("leagueMemberId");
-    if (leagueMemberId == null) {
-    }
     var payload = {
       betName: `${name} | ${bet.value}`,
       date: "2022-05-16T17:53:45.381Z",
